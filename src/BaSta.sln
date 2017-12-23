@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2010
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BaSta.Core", "BaSta.Core\BaSta.Core.csproj", "{8931F91D-8B99-49C3-91AD-084EB5CABF95}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaSta.Test", "BaSta.Test\BaSta.Test.csproj", "{FD2DAE87-354B-4843-B6DF-09A2FEE20266}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8931F91D-8B99-49C3-91AD-084EB5CABF95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8931F91D-8B99-49C3-91AD-084EB5CABF95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8931F91D-8B99-49C3-91AD-084EB5CABF95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8931F91D-8B99-49C3-91AD-084EB5CABF95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD2DAE87-354B-4843-B6DF-09A2FEE20266}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD2DAE87-354B-4843-B6DF-09A2FEE20266}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD2DAE87-354B-4843-B6DF-09A2FEE20266}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD2DAE87-354B-4843-B6DF-09A2FEE20266}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {399EA7AE-A1DF-4935-8D5A-74F561E9FF8B}
+	EndGlobalSection
+EndGlobal

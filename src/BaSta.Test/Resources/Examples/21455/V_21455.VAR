@@ -1,0 +1,10 @@
+[Definition]
+VarData=Code;Parent;Main;Sub;Type;Note;User1;User2;User3
+
+[VarData]
+ACTIONS;;;;;;;;
+PRINT;;8;;;;;;
+ROSTER;;;;;;;;
+MATCHREPORT;;4;;;;;;
+C77B;;;;;;;;
+C77A;;;;;;;;

@@ -1,0 +1,12 @@
+[Info]
+GameFile=21455
+CompName=NBBL - Hauptrunde 3
+Group=
+Round=7. Spieltag
+Site=Jena|
+Date=19.11.2017
+Time=15:00
+Spectators=
+Details=2017-2018;4;1
+TeamA=Science City Jena;SCJ;12
+TeamB=OETTINGER Rockets Gotha;GTH;11

@@ -1,0 +1,12 @@
+[Info]
+GameFile=20942
+CompName=easyCredit BBL
+Group=
+Round=13. Spieltag
+Site=Jena|Sparkassen-Arena
+Date=17.12.2017
+Time=17:30
+Spectators=
+Details=2017-2018;1;1
+TeamA=Science City Jena;JEN;12
+TeamB=WALTER Tigers Tübingen;TUB;10
