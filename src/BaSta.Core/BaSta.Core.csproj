@@ -1,52 +1,15 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup Label="Globals">
-    <Configurations>Debug;Release</Configurations>
-  </PropertyGroup>
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Features>IOperation</Features>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    
     <AssemblyName>BaSta.Core</AssemblyName>
     <RootNamespace>BaSta</RootNamespace>
-    <SignAssembly>true</SignAssembly>
-    <DelaySign>false</DelaySign>
-    <AssemblyOriginatorKeyFile>..\BaSta.snk</AssemblyOriginatorKeyFile>
-    <CodeAnalysisRuleSet>..\BaSta.ruleset</CodeAnalysisRuleSet>
-    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>bin\Debug\BaSta.Core.xml</DocumentationFile>
-    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>bin\Release\BaSta.Core.xml</DocumentationFile>
-    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="NDbfReader" Version="2.0.0" PrivateAssets="All" />
-    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" PrivateAssets="All" />
-
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.6.0-beta2" PrivateAssets="All" />
-    <PackageReference Include="StyleCop.Analyzers" Version="1.1.0-beta004" PrivateAssets="All" />
+    <PackageReference Include="NDbfReader" Version="2.3.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
   </ItemGroup>
 
-  <ItemGroup>
-    <AdditionalFiles Include="..\stylecop.json" Link="stylecop.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="IO\JSON\" />
-    <Folder Include="IO\dBASE\" />
-    <Folder Include="Model\" />
-  </ItemGroup>
-  
 </Project>

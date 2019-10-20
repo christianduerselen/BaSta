@@ -1,0 +1,59 @@
+﻿<Project>
+
+  <PropertyGroup>
+    <BuildNumber>1</BuildNumber>
+
+    <Configurations>Debug;Beta;Release</Configurations>
+
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <Product>BaSta</Product>
+    <Company>Carl Zeiss Spectroscopy GmbH</Company>
+    <Copyright>Copyright (c) Christian Dürselen. All rights reserved.</Copyright>
+    <AssemblyVersion>1.0.0.$(BuildNumber)</AssemblyVersion>
+    <FileVersion>$(Version)</FileVersion>
+
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)BaSta.snk</AssemblyOriginatorKeyFile>
+
+    <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)BaSta.ruleset</CodeAnalysisRuleSet>
+
+    <BaseIntermediateOutputPath>$(MSBuildThisFileDirectory)Build\deps\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
+    <IntermediateOutputPath>$(MSBuildThisFileDirectory)Build\obj\$(MSBuildProjectName)\$(Configuration)\$(TargetFramework)\</IntermediateOutputPath>
+    <OutputPath>$(MSBuildThisFileDirectory)Build\bin\$(MSBuildProjectName)\$(Configuration)\$(TargetFramework)\</OutputPath>
+    <DocumentationFile Condition="!$(MSBuildProjectName.Contains('.Test'))">$(OutputPath)$(MSBuildProjectName).xml</DocumentationFile>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    
+    <!-- Determines whether Extended_Clean target is executed, removing IntermediateOutputPath and OutputPath completely -->
+    <ApplyExtendedClean>true</ApplyExtendedClean>
+
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DebugType>full</DebugType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)' == 'Beta'">
+    <DefineConstants>TRACE;BETA</DefineConstants>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <DefineConstants>TRACE;RELEASE</DefineConstants>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="$(MSBuildThisFileDirectory)stylecop.json" Link="stylecop.json" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.6" PrivateAssets="All" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" PrivateAssets="All" />
+  </ItemGroup>
+
+</Project>

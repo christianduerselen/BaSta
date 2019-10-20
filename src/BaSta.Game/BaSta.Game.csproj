@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+	<OutputType>WinExe</OutputType>
+	<UseWindowsForms>true</UseWindowsForms>
+
+    <AssemblyName>BaSta.Game</AssemblyName>
+    <RootNamespace>BaSta.Game</RootNamespace>
+  </PropertyGroup>
+
+</Project>

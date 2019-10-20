@@ -1,125 +1,24 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup Label="Globals">
-    <Configurations>Debug;Release</Configurations>
-  </PropertyGroup>
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Features>IOperation</Features>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+
     <AssemblyName>BaSta.Test</AssemblyName>
     <RootNamespace>BaSta.Test</RootNamespace>
-    <SignAssembly>true</SignAssembly>
-    <DelaySign>false</DelaySign>
-    <AssemblyOriginatorKeyFile>..\BaSta.snk</AssemblyOriginatorKeyFile>
-    <CodeAnalysisRuleSet>..\BaSta.ruleset</CodeAnalysisRuleSet>
-    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>bin\Debug\BaSta.Test.xml</DocumentationFile>
-    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>bin\Release\BaSta.Test.xml</DocumentationFile>
-    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resources\Examples\20942\20942.JSN" />
-    <None Remove="Resources\Examples\20942\20942Q1.JSN" />
-    <None Remove="Resources\Examples\20942\20942Q2.JSN" />
-    <None Remove="Resources\Examples\20942\20942Q3.JSN" />
-    <None Remove="Resources\Examples\20942\20942Q4.JSN" />
-    <None Remove="Resources\Examples\20942\A_20942.DBF" />
-    <None Remove="Resources\Examples\20942\E_20942.DBF" />
-    <None Remove="Resources\Examples\20942\I_20942.TXT" />
-    <None Remove="Resources\Examples\21455\21455.JSN" />
-    <None Remove="Resources\Examples\21455\21455Q1.JSN" />
-    <None Remove="Resources\Examples\21455\21455Q2.JSN" />
-    <None Remove="Resources\Examples\21455\21455Q3.JSN" />
-    <None Remove="Resources\Examples\21455\21455Q4.JSN" />
-    <None Remove="Resources\Examples\21455\21455VER.TXT" />
-    <None Remove="Resources\Examples\21455\21455X1.JSN" />
-    <None Remove="Resources\Examples\21455\21455X2.JSN" />
-    <None Remove="Resources\Examples\21455\21455X3.JSN" />
-    <None Remove="Resources\Examples\21455\21455X4.JSN" />
-    <None Remove="Resources\Examples\21455\21455X5.JSN" />
-    <None Remove="Resources\Examples\21455\21455X6.JSN" />
-    <None Remove="Resources\Examples\21455\21455X7.JSN" />
-    <None Remove="Resources\Examples\21455\21455X8.JSN" />
-    <None Remove="Resources\Examples\21455\21455X9.JSN" />
-    <None Remove="Resources\Examples\21455\21455_INIT.JSN" />
-    <None Remove="Resources\Examples\21455\A_21455.DBF" />
-    <None Remove="Resources\Examples\21455\E_21455.DBF" />
-    <None Remove="Resources\Examples\21455\I_21455.TXT" />
-    <None Remove="Resources\Examples\21455\V_21455.VAR" />
-    <None Remove="Resources\Examples\5909\5909.JSN" />
-    <None Remove="Resources\Examples\5909\5909Q1.JSN" />
-    <None Remove="Resources\Examples\5909\5909Q2.JSN" />
-    <None Remove="Resources\Examples\5909\5909Q3.JSN" />
-    <None Remove="Resources\Examples\5909\5909Q4.JSN" />
-    <None Remove="Resources\Examples\5909\5909_INIT.JSN" />
+    <ProjectReference Include="..\BaSta.Core\BaSta.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.5.0" />
-    <PackageReference Include="MSTest.TestAdapter" Version="1.2.0" />
-    <PackageReference Include="MSTest.TestFramework" Version="1.2.0" />
-
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.6.0-beta2" PrivateAssets="All" />
-    <PackageReference Include="StyleCop.Analyzers" Version="1.1.0-beta004" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.3.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="2.0.0" />
+    <PackageReference Include="MSTest.TestFramework" Version="2.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <AdditionalFiles Include="..\stylecop.json" Link="stylecop.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\Examples\20942\20942.JSN" />
-    <EmbeddedResource Include="Resources\Examples\20942\20942Q1.JSN" />
-    <EmbeddedResource Include="Resources\Examples\20942\20942Q2.JSN" />
-    <EmbeddedResource Include="Resources\Examples\20942\20942Q3.JSN" />
-    <EmbeddedResource Include="Resources\Examples\20942\20942Q4.JSN" />
-    <EmbeddedResource Include="Resources\Examples\20942\A_20942.DBF" />
-    <EmbeddedResource Include="Resources\Examples\20942\E_20942.DBF" />
-    <EmbeddedResource Include="Resources\Examples\20942\I_20942.TXT" />
-    <EmbeddedResource Include="Resources\Examples\21455\21455.JSN" />
-    <EmbeddedResource Include="Resources\Examples\21455\21455Q1.JSN" />
-    <EmbeddedResource Include="Resources\Examples\21455\21455Q2.JSN" />
-    <EmbeddedResource Include="Resources\Examples\21455\21455Q3.JSN" />
-    <EmbeddedResource Include="Resources\Examples\21455\21455Q4.JSN" />
-    <EmbeddedResource Include="Resources\Examples\21455\21455VER.TXT" />
-    <EmbeddedResource Include="Resources\Examples\21455\21455X1.JSN" />
-    <EmbeddedResource Include="Resources\Examples\21455\21455X2.JSN" />
-    <EmbeddedResource Include="Resources\Examples\21455\21455X3.JSN" />
-    <EmbeddedResource Include="Resources\Examples\21455\21455X4.JSN" />
-    <EmbeddedResource Include="Resources\Examples\21455\21455X5.JSN" />
-    <EmbeddedResource Include="Resources\Examples\21455\21455X6.JSN" />
-    <EmbeddedResource Include="Resources\Examples\21455\21455X7.JSN" />
-    <EmbeddedResource Include="Resources\Examples\21455\21455X8.JSN" />
-    <EmbeddedResource Include="Resources\Examples\21455\21455X9.JSN" />
-    <EmbeddedResource Include="Resources\Examples\21455\21455_INIT.JSN" />
-    <EmbeddedResource Include="Resources\Examples\21455\A_21455.DBF" />
-    <EmbeddedResource Include="Resources\Examples\21455\E_21455.DBF" />
-    <EmbeddedResource Include="Resources\Examples\21455\I_21455.TXT" />
-    <EmbeddedResource Include="Resources\Examples\21455\V_21455.VAR" />
-    <EmbeddedResource Include="Resources\Examples\5909\5909.JSN" />
-    <EmbeddedResource Include="Resources\Examples\5909\5909Q1.JSN" />
-    <EmbeddedResource Include="Resources\Examples\5909\5909Q2.JSN" />
-    <EmbeddedResource Include="Resources\Examples\5909\5909Q3.JSN" />
-    <EmbeddedResource Include="Resources\Examples\5909\5909Q4.JSN" />
-    <EmbeddedResource Include="Resources\Examples\5909\5909_INIT.JSN" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="IO\" />
+    <EmbeddedResource Include="Resources\**\*" />
   </ItemGroup>
 
 </Project>

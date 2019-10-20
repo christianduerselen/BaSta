@@ -1,26 +1,55 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2010
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29403.142
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BaSta.Core", "BaSta.Core\BaSta.Core.csproj", "{8931F91D-8B99-49C3-91AD-084EB5CABF95}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaSta.Test", "BaSta.Test\BaSta.Test.csproj", "{FD2DAE87-354B-4843-B6DF-09A2FEE20266}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BaSta.Test", "BaSta.Test\BaSta.Test.csproj", "{FD2DAE87-354B-4843-B6DF-09A2FEE20266}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configuration", "Configuration", "{5B36AC80-33D3-4E4C-B54E-722A888563DE}"
+	ProjectSection(SolutionItems) = preProject
+		BaSta.ruleset = BaSta.ruleset
+		BaSta.snk = BaSta.snk
+		Directory.Build.props = Directory.Build.props
+		stylecop.json = stylecop.json
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BaSta.Link", "BaSta.Link\BaSta.Link.csproj", "{4C440392-699B-4456-8372-3BCC3C5D3B2F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BaSta.Game", "BaSta.Game\BaSta.Game.csproj", "{C34691FA-B7CF-45A9-B754-33C2E52A72D5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Beta|Any CPU = Beta|Any CPU
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8931F91D-8B99-49C3-91AD-084EB5CABF95}.Beta|Any CPU.ActiveCfg = Beta|Any CPU
+		{8931F91D-8B99-49C3-91AD-084EB5CABF95}.Beta|Any CPU.Build.0 = Beta|Any CPU
 		{8931F91D-8B99-49C3-91AD-084EB5CABF95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8931F91D-8B99-49C3-91AD-084EB5CABF95}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8931F91D-8B99-49C3-91AD-084EB5CABF95}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8931F91D-8B99-49C3-91AD-084EB5CABF95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD2DAE87-354B-4843-B6DF-09A2FEE20266}.Beta|Any CPU.ActiveCfg = Beta|Any CPU
+		{FD2DAE87-354B-4843-B6DF-09A2FEE20266}.Beta|Any CPU.Build.0 = Beta|Any CPU
 		{FD2DAE87-354B-4843-B6DF-09A2FEE20266}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FD2DAE87-354B-4843-B6DF-09A2FEE20266}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD2DAE87-354B-4843-B6DF-09A2FEE20266}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD2DAE87-354B-4843-B6DF-09A2FEE20266}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C440392-699B-4456-8372-3BCC3C5D3B2F}.Beta|Any CPU.ActiveCfg = Beta|Any CPU
+		{4C440392-699B-4456-8372-3BCC3C5D3B2F}.Beta|Any CPU.Build.0 = Beta|Any CPU
+		{4C440392-699B-4456-8372-3BCC3C5D3B2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C440392-699B-4456-8372-3BCC3C5D3B2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C440392-699B-4456-8372-3BCC3C5D3B2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C440392-699B-4456-8372-3BCC3C5D3B2F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C34691FA-B7CF-45A9-B754-33C2E52A72D5}.Beta|Any CPU.ActiveCfg = Beta|Any CPU
+		{C34691FA-B7CF-45A9-B754-33C2E52A72D5}.Beta|Any CPU.Build.0 = Beta|Any CPU
+		{C34691FA-B7CF-45A9-B754-33C2E52A72D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C34691FA-B7CF-45A9-B754-33C2E52A72D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C34691FA-B7CF-45A9-B754-33C2E52A72D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C34691FA-B7CF-45A9-B754-33C2E52A72D5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
