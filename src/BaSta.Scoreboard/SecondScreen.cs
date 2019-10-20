@@ -34,7 +34,6 @@ namespace BaSta.Scoreboard
         private Effects.IEffect _my_effect;
         private bool _layout_loaded;
         private bool _loading;
-        private bool _layout_in_use;
         private DataBaseFunctions _dbfunc;
         private bool _database_connected;
         private Team _home_team;
@@ -49,11 +48,7 @@ namespace BaSta.Scoreboard
         private bool _ext_graphic_in_window;
         private bool _allow_lan_graphic;
         private bool _show_video;
-        private Image _homelogo;
-        private Image _guestlogo;
-        private Label textBox1;
-        private IContainer components;
-
+        
         public PictureBox Picturebox
         {
             get
@@ -153,8 +148,9 @@ namespace BaSta.Scoreboard
 
         public void SetData(string Data)
         {
-            if (_layout_in_use || _loading)
+            if (_loading)
                 return;
+
             if (Data.StartsWith("*"))
             {
                 string[] strArray1 = Data.Split('|');
@@ -771,7 +767,6 @@ namespace BaSta.Scoreboard
                         Application.DoEvents();
                 }
                 hidePictureBoxAsync(pictureBox1);
-                hideLabelAsync(textBox1);
             }
             clearScoreboardAsync((Form)this, pictureBox1);
         }
@@ -829,10 +824,6 @@ namespace BaSta.Scoreboard
                     scoreboardLabel2.MyLabel.Top = Convert.ToInt32(strArray2[2]);
                     scoreboardLabel2.MyLabel.Width = Convert.ToInt32(strArray2[3]);
                     scoreboardLabel2.MyLabel.Height = Convert.ToInt32(strArray2[4]);
-                    if (strArray2[0] == "LogoHome" && _homelogo != null)
-                        scoreboardLabel2.MyLabel.Image = (Image)new Bitmap(_homelogo, scoreboardLabel2.MyLabel.Size);
-                    if (strArray2[0] == "LogoGuest" && _guestlogo != null)
-                        scoreboardLabel2.MyLabel.Image = (Image)new Bitmap(_guestlogo, scoreboardLabel2.MyLabel.Size);
                     FontStyle style = !(strArray2[7] == "True") ? FontStyle.Regular : FontStyle.Bold;
                     scoreboardLabel2.MyLabel.Font = new Font(strArray2[5], Convert.ToSingle(strArray2[6]), style);
                     scoreboardLabel2.MyLabel.ForeColor = Color.FromArgb(Convert.ToInt32(strArray2[8]));
@@ -1014,8 +1005,6 @@ namespace BaSta.Scoreboard
 
         public void hideLabelAsync(Label textBox)
         {
-            if (textBox1 == null)
-                return;
             if (textBox.InvokeRequired)
             {
                 textBox.Invoke((Delegate)new SecondScreen.hideLabelAsyncDelegate(hideLabelAsync), (object)textBox);
@@ -1088,13 +1077,6 @@ namespace BaSta.Scoreboard
                 _mci.Close();
             _mci.Dispose();
             _mci = (Mci)null;
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && components != null)
-                components.Dispose();
-            base.Dispose(disposing);
         }
 
         private void InitializeComponent()

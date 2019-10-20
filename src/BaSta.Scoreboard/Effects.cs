@@ -3985,7 +3985,6 @@ namespace BaSta.Scoreboard
         Rectangle rectangle1 = new Rectangle(new Point(0, 0), _picturebox.Size);
         int width = rectangle1.Width;
         int height = rectangle1.Height;
-        Rectangle rectangle2 = new Rectangle();
         while (_counter < _steps + 1)
         {
           try

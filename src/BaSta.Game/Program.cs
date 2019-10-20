@@ -1,19 +1,39 @@
 ﻿using System;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace BaSta.Game
 {
-    /// <summary>
-    /// Program class for main entry point.
-    /// </summary>
-    public static class Program
+    internal static class Program
     {
-        /// <summary>
-        /// Main entry point.
-        /// </summary>
-        public static void Main()
+        private static Mutex _mutex;
+
+        [STAThread]
+        private static void Main()
         {
-            Console.WriteLine("\nHit enter to continue...");
-            Console.Read();
+            if (IsOtherInstanceRunning())
+            {
+                MessageBox.Show(@"Dieses Programm kann nicht mehrfach ausgeführt werden.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            else
+            {
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                try
+                {
+                    Application.Run(new Form1());
+                }
+                catch
+                {
+                    // Ignored
+                }
+            }
+        }
+
+        public static bool IsOtherInstanceRunning()
+        {
+            _mutex = new Mutex(false, Application.ProductName + "_MultiStartPrevent");
+            return !_mutex.WaitOne(0, true);
         }
     }
 }

@@ -21,6 +21,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BaSta.Game", "BaSta.Game\Ba
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BaSta.Scoreboard", "BaSta.Scoreboard\BaSta.Scoreboard.csproj", "{8517E487-9F07-4BB8-953A-47ED83ACECBE}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BaSta.Layout", "BaSta.Layout\BaSta.Layout.csproj", "{60A8FAB8-EE74-49D1-A0F6-7536CF27717C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Beta|Any CPU = Beta|Any CPU
@@ -58,6 +60,12 @@ Global
 		{8517E487-9F07-4BB8-953A-47ED83ACECBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8517E487-9F07-4BB8-953A-47ED83ACECBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8517E487-9F07-4BB8-953A-47ED83ACECBE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60A8FAB8-EE74-49D1-A0F6-7536CF27717C}.Beta|Any CPU.ActiveCfg = Beta|Any CPU
+		{60A8FAB8-EE74-49D1-A0F6-7536CF27717C}.Beta|Any CPU.Build.0 = Beta|Any CPU
+		{60A8FAB8-EE74-49D1-A0F6-7536CF27717C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60A8FAB8-EE74-49D1-A0F6-7536CF27717C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60A8FAB8-EE74-49D1-A0F6-7536CF27717C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60A8FAB8-EE74-49D1-A0F6-7536CF27717C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -5,11 +5,8 @@ namespace BaSta.Scoreboard
 {
     public class GamePlayer
     {
-        private const int _blink_cycles = 10;
-
         private readonly Timer _blink_timer = new Timer();
         
-        private int _blink_intervals;
         private int mPlayerNumber;
         private int mFouls;
 
@@ -36,8 +33,6 @@ namespace BaSta.Scoreboard
             _blink_timer.Tick += _blink_timer_Tick;
         }
 
-        public bool FoulsVisible { get; set; } = true;
-
         public int GameID { get; set; } = -1;
 
         public int TeamID { get; set; } = -1;
@@ -62,10 +57,7 @@ namespace BaSta.Scoreboard
             set
             {
                 if (value > mFouls)
-                {
-                    _blink_intervals = 10;
                     _blink_timer.Start();
-                }
 
                 mFouls = value;
             }
@@ -73,27 +65,7 @@ namespace BaSta.Scoreboard
 
         public int GamePlayerCards { get; set; }
 
-        public byte[] PlayerImage { get; set; }
-
         public bool IsReservePlayer { get; set; }
-
-        public bool IsTrainer
-        {
-            get => mPlayerNumber == -1;
-            set => mPlayerNumber = -1;
-        }
-
-        public bool IsCoTrainer
-        {
-            get => mPlayerNumber < -1;
-            set => mPlayerNumber = -2;
-        }
-
-        public bool IsReferee
-        {
-            get => TeamID == -1;
-            set => TeamID = -1;
-        }
 
         public bool IsGoalkeeper { get; set; }
 
