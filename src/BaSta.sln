@@ -19,6 +19,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BaSta.Link", "BaSta.Link\Ba
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BaSta.Game", "BaSta.Game\BaSta.Game.csproj", "{C34691FA-B7CF-45A9-B754-33C2E52A72D5}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BaSta.Scoreboard", "BaSta.Scoreboard\BaSta.Scoreboard.csproj", "{8517E487-9F07-4BB8-953A-47ED83ACECBE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Beta|Any CPU = Beta|Any CPU
@@ -50,6 +52,12 @@ Global
 		{C34691FA-B7CF-45A9-B754-33C2E52A72D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C34691FA-B7CF-45A9-B754-33C2E52A72D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C34691FA-B7CF-45A9-B754-33C2E52A72D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8517E487-9F07-4BB8-953A-47ED83ACECBE}.Beta|Any CPU.ActiveCfg = Beta|Any CPU
+		{8517E487-9F07-4BB8-953A-47ED83ACECBE}.Beta|Any CPU.Build.0 = Beta|Any CPU
+		{8517E487-9F07-4BB8-953A-47ED83ACECBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8517E487-9F07-4BB8-953A-47ED83ACECBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8517E487-9F07-4BB8-953A-47ED83ACECBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8517E487-9F07-4BB8-953A-47ED83ACECBE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
