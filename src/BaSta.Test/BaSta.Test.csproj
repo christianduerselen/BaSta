@@ -1,14 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
-
-    <AssemblyName>BaSta.Test</AssemblyName>
-    <RootNamespace>BaSta.Test</RootNamespace>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\BaSta.Core\BaSta.Core.csproj" />
+    <ProjectReference Include="..\BaSta.TimeSync\BaSta.TimeSync.csproj" />
   </ItemGroup>
 
   <ItemGroup>

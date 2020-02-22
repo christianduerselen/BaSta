@@ -15,13 +15,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configuration", "Configurat
 		stylecop.json = stylecop.json
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BaSta.Link", "BaSta.Link\BaSta.Link.csproj", "{4C440392-699B-4456-8372-3BCC3C5D3B2F}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BaSta.Game", "BaSta.Game\BaSta.Game.csproj", "{C34691FA-B7CF-45A9-B754-33C2E52A72D5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BaSta.Scoreboard", "BaSta.Scoreboard\BaSta.Scoreboard.csproj", "{8517E487-9F07-4BB8-953A-47ED83ACECBE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BaSta.Layout", "BaSta.Layout\BaSta.Layout.csproj", "{60A8FAB8-EE74-49D1-A0F6-7536CF27717C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BaSta.TimeSync", "BaSta.TimeSync\BaSta.TimeSync.csproj", "{96E5261A-353D-42B9-AEE9-8D062968B4C3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,12 +42,6 @@ Global
 		{FD2DAE87-354B-4843-B6DF-09A2FEE20266}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD2DAE87-354B-4843-B6DF-09A2FEE20266}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD2DAE87-354B-4843-B6DF-09A2FEE20266}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4C440392-699B-4456-8372-3BCC3C5D3B2F}.Beta|Any CPU.ActiveCfg = Beta|Any CPU
-		{4C440392-699B-4456-8372-3BCC3C5D3B2F}.Beta|Any CPU.Build.0 = Beta|Any CPU
-		{4C440392-699B-4456-8372-3BCC3C5D3B2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4C440392-699B-4456-8372-3BCC3C5D3B2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4C440392-699B-4456-8372-3BCC3C5D3B2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4C440392-699B-4456-8372-3BCC3C5D3B2F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C34691FA-B7CF-45A9-B754-33C2E52A72D5}.Beta|Any CPU.ActiveCfg = Beta|Any CPU
 		{C34691FA-B7CF-45A9-B754-33C2E52A72D5}.Beta|Any CPU.Build.0 = Beta|Any CPU
 		{C34691FA-B7CF-45A9-B754-33C2E52A72D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -66,6 +60,12 @@ Global
 		{60A8FAB8-EE74-49D1-A0F6-7536CF27717C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60A8FAB8-EE74-49D1-A0F6-7536CF27717C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60A8FAB8-EE74-49D1-A0F6-7536CF27717C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96E5261A-353D-42B9-AEE9-8D062968B4C3}.Beta|Any CPU.ActiveCfg = Beta|Any CPU
+		{96E5261A-353D-42B9-AEE9-8D062968B4C3}.Beta|Any CPU.Build.0 = Beta|Any CPU
+		{96E5261A-353D-42B9-AEE9-8D062968B4C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96E5261A-353D-42B9-AEE9-8D062968B4C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96E5261A-353D-42B9-AEE9-8D062968B4C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96E5261A-353D-42B9-AEE9-8D062968B4C3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

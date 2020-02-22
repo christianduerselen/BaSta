@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RuntimeIdentifier>win-x86</RuntimeIdentifier>
+    <OutputType>Exe</OutputType>
+
+    <PublishReadyToRun>true</PublishReadyToRun>
+    <PublishSingleFile>true</PublishSingleFile>
+
+    <ApplicationIcon>Resources\Application.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ini-parser-netstandard" Version="2.5.2" />
+    <PackageReference Include="NLog" Version="4.6.8" />
+    <PackageReference Include="System.IO.Ports" Version="4.6.0" />
+
+    <ProjectReference Include="..\BaSta.Core\BaSta.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Basta.TimeSync.ini" CopyToOutputDirectory="Always" ExcludeFromSingleFile="true" />
+  </ItemGroup>
+
+</Project>

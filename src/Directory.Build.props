@@ -6,7 +6,6 @@
     <Configurations>Debug;Beta;Release</Configurations>
 
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
-    <Product>BaSta</Product>
     <Company>Christian Dürselen</Company>
     <Copyright>Copyright (c) Christian Dürselen. All rights reserved.</Copyright>
     <Version>1.0.0.$(BuildNumber)</Version>
@@ -21,10 +20,7 @@
     <OutputPath>$(MSBuildThisFileDirectory)Build\bin\$(MSBuildProjectName)\$(Configuration)\$(TargetFramework)\</OutputPath>
     <!--<DocumentationFile Condition="!$(MSBuildProjectName.Contains('.Test'))">$(OutputPath)$(MSBuildProjectName).xml</DocumentationFile>-->
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
-    
-    <!-- Determines whether Extended_Clean target is executed, removing IntermediateOutputPath and OutputPath completely -->
-    <ApplyExtendedClean>true</ApplyExtendedClean>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>    
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
@@ -40,7 +36,7 @@
 
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">
     <DefineConstants>TRACE;RELEASE</DefineConstants>
-    <DebugType>pdbonly</DebugType>
+    <DebugType>None</DebugType>
     <Optimize>true</Optimize>
   </PropertyGroup>
 
