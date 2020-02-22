@@ -46,11 +46,6 @@ namespace BaSta.TimeSync
                 config.AddRule(LogLevel.Info, LogLevel.Fatal, consoleTarget);
                 LogManager.Configuration = config;
 
-                Logger.Error(Assembly.GetAssembly(typeof(Program)).Location);
-                Logger.Error(Assembly.GetExecutingAssembly().Location);
-                Logger.Error(Assembly.GetCallingAssembly().Location);
-                Logger.Error(Assembly.GetEntryAssembly().Location);
-
                 // Log all unhandled exceptions
                 AppDomain.CurrentDomain.UnhandledException += (s, e) => Logger.Error((Exception)e.ExceptionObject);
 
