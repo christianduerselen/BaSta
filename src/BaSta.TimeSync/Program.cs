@@ -7,6 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using BaSta;
+using BaSta.Core;
 using NLog;
 using NLog.Config;
 using NLog.Targets;
@@ -64,7 +65,7 @@ namespace BaSta.TimeSync
                 var input = TimeSyncTaskFactory.CreateInput(settings.Input);
                 var outputs = settings.Outputs.Select(TimeSyncTaskFactory.CreateOutput);
                 var runner = new TimeSyncRunner(input, outputs);
-                runner.Start();
+                runner.Initialize();
 
                 // Wait for user input from the console to stop the program
                 AutoResetEvent consoleCancelledEvent = new AutoResetEvent(false);
@@ -77,8 +78,8 @@ namespace BaSta.TimeSync
                 Console.WriteLine("Press Ctl+C to stop the program...");
                 consoleCancelledEvent.WaitOne();
 
-                // Stop runner
-                runner.Stop();
+                // Terminate runner
+                runner.Terminate();
 
                 return (int)ReturnCode.OK;
             }
@@ -117,17 +118,15 @@ namespace BaSta.TimeSync
         event EventHandler StateChanged;
     }
 
-    internal interface ITimeSyncTask
+    internal interface ITimeSyncTask : IProcessTask
     {
-        void Start();
-
-        void Stop();
-
         void LoadSettings(string name, ITimeSyncSettingsGroup settings);
     }
 
-    internal abstract class TimeSyncTaskBase : ITimeSyncTask
+    internal abstract class TimeSyncTaskBase : ProcessTaskBase, ITimeSyncTask
     {
+        private ExternalActionProcess _process;
+
         protected string Name { get; private set; }
         
         protected Logger Logger { get; private set; }
@@ -141,17 +140,31 @@ namespace BaSta.TimeSync
             LoadSettings(settings);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="settings"></param>
         protected abstract void LoadSettings(ITimeSyncSettingsGroup settings);
 
-        /// <inheritdoc/>
-        public abstract void Start();
+        protected abstract void OnStartSync();
+
+        protected abstract void OnProcess(CancellationToken cancellationToken);
+
+        protected abstract void OnStopSync();
 
         /// <inheritdoc/>
-        public abstract void Stop();
+        protected override void OnInitialize()
+        {
+            OnStartSync();
+
+            _process = new ExternalActionProcess(OnProcess);
+            _process.Initialize();
+        }
+
+        /// <inheritdoc/>
+        protected override void OnTerminate()
+        {
+            _process?.Terminate();
+            _process = null;
+
+            OnStopSync();
+        }
     }
 
     internal class TimeSyncRunner : ITimeSyncTask
@@ -171,16 +184,20 @@ namespace BaSta.TimeSync
             _outputTasks = outputTasks.ToArray();
         }
 
-        public void Start()
+        public bool IsEnabled { get; set; }
+
+        public bool IsInitialized { get; }
+
+        public void Initialize()
         {
             _cancellationTokenSource = new CancellationTokenSource();
 
             _acceptTask = Task.Factory.StartNew(SyncTask);
 
             foreach (ITimeSyncOutputTask output in _outputTasks)
-                output.Start();
+                output.Initialize();
 
-            _inputTask.Start();
+            _inputTask.Initialize();
             _inputTask.StateChanged += OnInputStateChanged;
         }
 
@@ -216,13 +233,13 @@ namespace BaSta.TimeSync
             }
         }
 
-        public void Stop()
+        public void Terminate()
         {
             _inputTask.StateChanged -= OnInputStateChanged;
-            _inputTask.Stop();
+            _inputTask.Terminate();
 
             foreach (ITimeSyncOutputTask output in _outputTasks)
-                output.Stop();
+                output.Terminate();
 
             if (_acceptTask == null)
                 return;

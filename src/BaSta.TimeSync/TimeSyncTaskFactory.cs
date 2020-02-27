@@ -17,12 +17,14 @@ namespace BaSta.TimeSync
         private static readonly IDictionary<string, Type> InputTypes = new Dictionary<string, Type>
         {
             { StramatelClassicFileInputTask.TypeName, typeof(StramatelClassicFileInputTask) },
-            { StramatelClassicSerialInputTask.TypeName, typeof(StramatelClassicSerialInputTask) }
+            { StramatelClassicSerialInputTask.TypeName, typeof(StramatelClassicSerialInputTask) },
+            { UimTimeInput.TypeName, typeof(UimTimeInput) }
         };
 
         private static readonly IDictionary<string, Type> OutputTypes = new Dictionary<string, Type>
         {
-            { ScoutTimeOutput.TypeName, typeof(ScoutTimeOutput) }
+            { ScoutTimeOutput.TypeName, typeof(ScoutTimeOutput) },
+            { FibaStatsSuiteOutput.TypeName, typeof(FibaStatsSuiteOutput) }
         };
 
         internal static ITimeSyncInputTask CreateInput(ITimeSyncSettingsGroup settings)

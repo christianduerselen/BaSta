@@ -41,6 +41,26 @@ namespace BaSta.Test
             }
         }
 
+        [TestMethod]
+        public void StramatelClassic_ParseTest2()
+        {
+            string fileLocation = @"C:\Users\m1cdu\Desktop\14400_Q1 - Kopie";
+            string fileText = File.ReadAllText(fileLocation);
+
+            StramatelClassicTimeParser parser = new StramatelClassicTimeParser();
+
+            for (int i = 0; i < fileText.Length; i = i + 2)
+            {
+                string hex = fileText.Substring(i, 2);
+
+                if (hex == Environment.NewLine)
+                    continue;
+
+                int value = Convert.ToInt32(hex, 16);
+                parser.Push((byte)value);
+            }
+        }
+
         public class StramatelClassicTimeParser
         {
             private const byte StartByte1 = 0x66;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO.Ports;
 using System.Linq;
+using System.Threading;
 
 namespace BaSta.TimeSync.Input
 {
@@ -13,40 +14,63 @@ namespace BaSta.TimeSync.Input
 
         protected override void LoadSettings(ITimeSyncSettingsGroup settings)
         {
-            //PortName = COM3
-            //BaudRate = 19200
-            //Parity = 2 // 0 = None | 1 = Odd | 2 = Even | 3 = Mark | 4 = Space
-            //DataBits = 8
-            //StopBits = 0 // 0 = None | 1 = One | 2 = Two | 3 = OnePointFive
-            //Handshake = 0 // 0 = None | 1 = XOnXOff | 2 = RequestToSend | 3 = RequestToSendXOnXOff
+            // PortName=COM10
+            // BaudRate=19200
+            // # 0 = None | 1 = Odd | 2 = Even | 3 = Mark | 4 = Space
+            // Parity=0
+            // DataBits=8
+            // # 1 = One | 2 = Two | 3 = OnePointFive
+            // StopBits=1
+            // # 0 = None | 1 = XOnXOff | 2 = RequestToSend | 3 = RequestToSendXOnXOff
+            // Handshake=0
 
-            _port = new SerialPort();
-            _port.PortName = settings.GetValue("PortName", s =>
+            _port = new SerialPort
             {
-                if (!SerialPort.GetPortNames().Contains(s))
-                    throw new Exception($"Serial port '{s}' not available on this system!");
+                PortName = settings.GetValue("PortName", s =>
+                {
+                    if (!SerialPort.GetPortNames().Contains(s))
+                        throw new Exception($"Serial port '{s}' not available on this system!");
 
-                return s;
-            }, null);
-            _port.BaudRate = settings.GetValue("BaudRate", int.Parse, 19200);
-            _port.Parity = settings.GetValue("Parity", Enum.Parse<Parity>, _port.Parity);
-            _port.DataBits = settings.GetValue("DataBits", int.Parse, _port.DataBits);
-            _port.StopBits = settings.GetValue("StopBits", Enum.Parse<StopBits>, _port.StopBits);
-            _port.Handshake = settings.GetValue("Handshake", Enum.Parse<Handshake>, _port.Handshake);
+                    return s;
+                }, null),
+                BaudRate = settings.GetValue("BaudRate", int.Parse, 19200),
+                Parity = settings.GetValue("Parity", Enum.Parse<Parity>, _port.Parity),
+                DataBits = settings.GetValue("DataBits", int.Parse, _port.DataBits),
+                StopBits = settings.GetValue("StopBits", Enum.Parse<StopBits>, _port.StopBits),
+                Handshake = settings.GetValue("Handshake", Enum.Parse<Handshake>, _port.Handshake)
+            };
         }
 
-        public override void Start()
+        protected override void OnStartSync()
         {
             _parser = new StramatelClassicTimeParser($"{Name}_Parser");
             _parser.TimeReceived += OnTimeReceived;
 
             _port.Open();
-            _port.DataReceived += OnDataReceived;
         }
 
-        public override void Stop()
+        protected override void OnProcess(CancellationToken cancellationToken)
         {
-            _port.DataReceived -= OnDataReceived;
+            while (!cancellationToken.IsCancellationRequested)
+            {
+                Thread.Sleep(1);
+
+                if (_port.BytesToRead <= 0)
+                    continue;
+
+                int inputLength = _port.BytesToRead;
+                byte[] input = new byte[inputLength];
+                _port.Read(input, 0, inputLength);
+
+                Logger.Debug(string.Join("", input.Select(x => $"{x:X2}")));
+
+                for (int i = 0; i < inputLength; i++)
+                    _parser.Push(input[i]);
+            }
+        }
+
+        protected override void OnStopSync()
+        {
             _port.Close();
 
             _parser.TimeReceived -= OnTimeReceived;
@@ -78,18 +102,6 @@ namespace BaSta.TimeSync.Input
 
             _lastReceivedTimestamp = currentTimestamp;
             StateChanged?.Invoke(this, null);
-        }
-
-        private void OnDataReceived(object sender, SerialDataReceivedEventArgs e)
-        {
-            int inputLength = _port.BytesToRead;
-            byte[] input = new byte[inputLength];
-            _port.Read(input, 0, inputLength);
-
-            Logger.Debug(string.Join("", input.Select(x => $"{x:X2}")));
-
-            for (int i = 0; i<inputLength; i++)
-                _parser.Push(input[i]);
         }
 
         public TimeSpan Pull()

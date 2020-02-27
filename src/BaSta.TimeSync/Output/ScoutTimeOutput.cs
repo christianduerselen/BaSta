@@ -2,6 +2,7 @@
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 
 namespace BaSta.TimeSync.Output
 {
@@ -23,34 +24,58 @@ namespace BaSta.TimeSync.Output
             _destinationEndpoint = new IPEndPoint(destinationAddress, destinationPort);
         }
 
-        public override void Start()
+        protected override void OnStartSync()
         {
             _socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
             _socket.Bind(_localEndpoint);
         }
 
-        public override void Stop()
+        private static readonly TimeSpan SyncInterval = TimeSpan.FromMilliseconds(100);
+        private DateTime LastSync = DateTime.MinValue;
+
+        protected override void OnProcess(CancellationToken cancellationToken)
+        {
+            while (!cancellationToken.IsCancellationRequested)
+            {
+                Thread.Sleep(1);
+
+                if (!_value.HasValue)
+                    continue;
+
+                DateTime now = DateTime.UtcNow;
+                if (LastSync + SyncInterval > now)
+                    continue;
+
+                LastSync = now;
+
+                string text = $"TMT{_value:hh\\:mm\\:ss}";
+
+                Logger.Debug(text);
+
+                byte[] textBytes = Encoding.ASCII.GetBytes(text);
+
+                byte[] sendBytes = new byte[textBytes.Length + 3];
+
+                sendBytes[0] = 0x02; // STX
+                Array.Copy(textBytes, 0, sendBytes, 1, textBytes.Length);
+                sendBytes[^2] = 0xCE;
+                sendBytes[^1] = 0x03;
+
+                _socket.SendTo(sendBytes, _destinationEndpoint);
+            }
+        }
+
+        protected override void OnStopSync()
         {
             _socket.Close();
             _socket = null;
         }
 
+        private TimeSpan? _value;
+
         public void Push(TimeSpan timeSpan)
         {
-            string text = $"TMT{timeSpan:hh\\:mm\\:ss}";
-
-            Logger.Debug(text);
-
-            byte[] textBytes = Encoding.ASCII.GetBytes(text);
-            
-            byte[] sendBytes = new byte[textBytes.Length + 3];
-
-            sendBytes[0] = 0x02; // STX
-            Array.Copy(textBytes, 0, sendBytes, 1, textBytes.Length);
-            sendBytes[^2] = 0xCE;
-            sendBytes[^1] = 0x03;
-
-            _socket.SendTo(sendBytes, _destinationEndpoint);
+            _value = timeSpan;
         }
     }
 }
