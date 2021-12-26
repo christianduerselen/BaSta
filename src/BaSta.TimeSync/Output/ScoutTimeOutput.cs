@@ -3,11 +3,14 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using Roydl.Crypto.Checksum;
 
 namespace BaSta.TimeSync.Output
 {
     internal class ScoutTimeOutput : TimeSyncTaskBase, ITimeSyncOutputTask
     {
+        private static readonly CrcConfig Crc8 = new(8, 0xb1, 0x01, 0x80);
+
         internal const string TypeName = "ActionScout";
 
         private Socket _socket;
@@ -56,9 +59,11 @@ namespace BaSta.TimeSync.Output
 
                 byte[] sendBytes = new byte[textBytes.Length + 3];
 
+                Crc8.ComputeHash(new ReadOnlySpan<byte>(textBytes), out byte hash);
+
                 sendBytes[0] = 0x02; // STX
                 Array.Copy(textBytes, 0, sendBytes, 1, textBytes.Length);
-                sendBytes[^2] = 0xCE;
+                sendBytes[^2] = hash;
                 sendBytes[^1] = 0x03;
 
                 _socket.SendTo(sendBytes, _destinationEndpoint);

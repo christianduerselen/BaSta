@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading;
+using BaSta.TimeSync;
 using BaSta.TimeSync.Output;
 using Xunit;
 
@@ -369,7 +371,17 @@ namespace BaSta.Test
         public void ScoutSendTest()
         {
             var a = new ScoutTimeOutput();
-            a.Push(new TimeSpan(00, 7, 26));
+            EmptyTimeSyncSettingsGroup settings = new EmptyTimeSyncSettingsGroup();
+
+            a.LoadSettings("", settings);
+            a.IsEnabled = true;
+            a.Initialize();
+
+            for (int i = 0; i < 60; i++)
+            {
+                a.Push(new TimeSpan(0, 7, i));
+                Thread.Sleep(1000);
+            }
         }
     }
 }
