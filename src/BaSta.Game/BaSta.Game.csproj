@@ -1,18 +1,15 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <OutputType>WinExe</OutputType>
     <UseWindowsForms>true</UseWindowsForms>
-
-    <AssemblyName>BaSta.Game</AssemblyName>
-    <RootNamespace>BaSta.Game</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Data.SqlClient" Version="4.7.0" />
-    <PackageReference Include="Microsoft.SqlServer.SqlManagementObjects" Version="150.18178.0" />
-    <PackageReference Include="System.IO.Ports" Version="4.6.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
+    <PackageReference Include="Microsoft.SqlServer.SqlManagementObjects" Version="161.46521.71" />
+    <PackageReference Include="System.IO.Ports" Version="6.0.0" />
   </ItemGroup>
 
 </Project>

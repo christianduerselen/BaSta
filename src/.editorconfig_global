@@ -1,0 +1,6 @@
+is_global = true
+global_level = 1
+
+# CA1014: Mark assemblies with CLSCompliantAttribute
+# Reason: CLSCompliant may be set to true in csproj when support for when non-string parameters are supported | ATTENTION: Requires updated VS 16.10 and MSBuild (https://github.com/dotnet/msbuild/pull/6285)
+dotnet_diagnostic.CA1014.severity=suggestion

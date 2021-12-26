@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using BaSta.TimeSync.Input;
+using BaSta.TimeSync.Input.Bodet;
 using BaSta.TimeSync.Output;
 using NLog;
 
@@ -18,7 +19,8 @@ namespace BaSta.TimeSync
         {
             { StramatelClassicFileInputTask.TypeName, typeof(StramatelClassicFileInputTask) },
             { StramatelClassicSerialInputTask.TypeName, typeof(StramatelClassicSerialInputTask) },
-            { UimTimeInput.TypeName, typeof(UimTimeInput) }
+            { UimTimeInput.TypeName, typeof(UimTimeInput) },
+            { BodetSerialInputTask.TypeName, typeof(BodetSerialInputTask) }
         };
 
         private static readonly IDictionary<string, Type> OutputTypes = new Dictionary<string, Type>
@@ -66,10 +68,18 @@ namespace BaSta.TimeSync
             }
             catch (Exception ex)
             {
-                Logger.Error(ex, "Error trying to create ");
+                Logger.Error(ex, $"Error trying to create task for '{taskName}': {ex.GetInnerMessages()}");
 
                 return null;
             }
+        }
+    }
+
+    internal static class ExceptionExceptions
+    {
+        internal static string GetInnerMessages(this Exception ex, int depth = 0)
+        {
+            return $"{ex.Message}" + (ex.InnerException != null ? $"{Environment.NewLine}{new string(' ', depth + 1)}> {ex.InnerException.GetInnerMessages(depth + 1)}" : string.Empty);
         }
     }
 }

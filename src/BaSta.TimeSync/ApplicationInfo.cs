@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using System.Reflection;
+﻿using System.Reflection;
 
 namespace BaSta.TimeSync
 {
@@ -7,9 +6,8 @@ namespace BaSta.TimeSync
     {
         public ApplicationInfo(Assembly assembly)
         {
-            FileVersionInfo info = FileVersionInfo.GetVersionInfo(assembly.Location);
-            Version = $"{info.ProductMajorPart}.{info.ProductMinorPart}.{info.ProductBuildPart}.{info.ProductPrivatePart}";
-            ProductName = info.ProductName;
+            Version = assembly.GetCustomAttribute<AssemblyFileVersionAttribute>().Version;
+            ProductName = assembly.GetCustomAttribute<AssemblyProductAttribute>().Product;
         }
 
         public string ProductName { get; }

@@ -75,7 +75,6 @@ namespace BaSta.Test
             private int _dataPointer;
             private ParseState _state = ParseState.AwaitCommandByte1;
 
-            private IDictionary<int, byte[][]> _assignedNumberBytes;
             private IDictionary<byte[], int> _assigned;
 
             public StramatelClassicTimeParser()

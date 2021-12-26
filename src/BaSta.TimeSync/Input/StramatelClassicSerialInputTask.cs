@@ -14,7 +14,7 @@ namespace BaSta.TimeSync.Input
 
         protected override void LoadSettings(ITimeSyncSettingsGroup settings)
         {
-            // PortName=COM10
+            // PortName=COM1
             // BaudRate=19200
             // # 0 = None | 1 = Odd | 2 = Even | 3 = Mark | 4 = Space
             // Parity=0

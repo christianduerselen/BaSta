@@ -1,0 +1,55 @@
+[*.{cs}]
+
+# CA1001: Types that own disposable fields should be disposable
+# Reason: In most cases other disposable mechanisms like IInitializable are used
+dotnet_diagnostic.CA1001.severity=suggestion
+
+# CA1031: Do not catch general exception types
+# Reason: In main programs a general catch is necessary to provide logging
+dotnet_diagnostic.CA1031.severity=suggestion
+
+# CA1024: Use properties where appropriate
+# Reason: Service requests must be written as methods for remote procedure calls
+dotnet_diagnostic.CA1024.severity=suggestion
+
+# CA1303: Do not pass literals as localized parameters
+# Reason: [TODO]
+dotnet_diagnostic.CA1303.severity=suggestion
+
+# CA1304: Specify CultureInfo
+# Reason: Some mechanisms like the string extension method for Localize() internally use the appropriate CultureInfo
+dotnet_diagnostic.CA1304.severity=suggestion
+
+# CA1305: Specify IFormatProvider
+# Reason: Most string.Format calls are with constant string patterns that are manageable regarding culture impact.
+dotnet_diagnostic.CA1305.severity=suggestion
+
+# CA1707: Identifiers should not contain underscores
+# Reason: Unit test names should be "[unit under test]_[test name]" to speed up search and clarify target
+dotnet_diagnostic.CA1707.severity=suggestion
+
+# CA1716: Identifiers should not match keywords
+# Reason: Affects identifiers like "Stop" that are relevant for C# interfaces.
+dotnet_diagnostic.CA1716.severity=suggestion
+
+
+# CA2000: Dispose objects before losing scope
+# Reason: Detection is flawed when using a try/catch in finally
+dotnet_diagnostic.CA2000.severity=suggestion
+
+# CA2008: CA2008: Do not create tasks without passing a TaskScheduler
+# Reason: [TODO]
+dotnet_diagnostic.CA2008.severity=suggestion
+
+# CS3001: Argument type is not CLS-compliant
+# Reason: Argument types of other third party libraries shall not be assesed for CLS compliance
+dotnet_diagnostic.CS3001.severity=suggestion
+
+# CS3002: Return type is not CLS-compliant
+# Reason: Return types of other third party libraries shall not be assesed for CLS compliance
+dotnet_diagnostic.CS3002.severity=suggestion
+
+
+# CS3009: Base type is not CLS-compliant
+# Reason: Base types of other third party libraries shall not be assesed for CLS compliance
+dotnet_diagnostic.CS3009.severity=suggestion

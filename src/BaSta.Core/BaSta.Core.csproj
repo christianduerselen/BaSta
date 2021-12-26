@@ -2,15 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    
-    <AssemblyName>BaSta.Core</AssemblyName>
     <RootNamespace>BaSta</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="NDbfReader" Version="2.3.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
-    <PackageReference Include="NLog" Version="4.6.8" />
+    <PackageReference Include="NDbfReader" Version="2.4.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="NLog" Version="4.7.13" />
   </ItemGroup>
 
 </Project>

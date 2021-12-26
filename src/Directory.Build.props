@@ -1,57 +1,96 @@
 ﻿<Project>
 
   <PropertyGroup>
-    <BuildNumber>1</BuildNumber>
-
-    <Configurations>Debug;Beta;Release</Configurations>
-
-    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <Product>BaSta</Product>
+    <Title>BaSta</Title>
+    <Description>BaSta is a set of tools for basketball statistics.</Description>
     <Company>Christian Dürselen</Company>
-    <Copyright>Copyright (c) Christian Dürselen. All rights reserved.</Copyright>
-    <Version>1.0.0.$(BuildNumber)</Version>
-    <FileVersion>$(Version)</FileVersion>
-    <AssemblyVersion>1.0.0.$(BuildNumber)</AssemblyVersion>
+    <Copyright>Copyright $([System.DateTime]::Now.ToString("yyyy")) $(Company). All rights reserved.</Copyright>
 
+    <!-- Sign assemblies with accompanying key -->
     <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)BaSta.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)Key.snk</AssemblyOriginatorKeyFile>
 
-    <BaseIntermediateOutputPath>$(MSBuildThisFileDirectory)Build\deps\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
-    <IntermediateOutputPath>$(MSBuildThisFileDirectory)Build\obj\$(MSBuildProjectName)\$(Configuration)\$(TargetFramework)\</IntermediateOutputPath>
-    <OutputPath>$(MSBuildThisFileDirectory)Build\bin\$(MSBuildProjectName)\$(Configuration)\$(TargetFramework)\</OutputPath>
-    <!--<DocumentationFile Condition="!$(MSBuildProjectName.Contains('.Test'))">$(OutputPath)$(MSBuildProjectName).xml</DocumentationFile>-->
-    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>    
-  </PropertyGroup>
+    <!-- Place obj and bin directories for build in the root directory above src -->
+    <BaseIntermediateOutputPath>$(MSBuildThisFileDirectory)..\obj\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
+    <BaseOutputPath>$(MSBuildThisFileDirectory)..\bin\$(MSBuildProjectName)\</BaseOutputPath>
 
-  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
-    <DebugType>full</DebugType>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)' == 'Beta'">
-    <DefineConstants>TRACE;BETA</DefineConstants>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
-    <DefineConstants>TRACE;RELEASE</DefineConstants>
-    <DebugType>None</DebugType>
-    <Optimize>true</Optimize>
-  </PropertyGroup>
-
-  <!--<PropertyGroup>
-    <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)BaSta.ruleset</CodeAnalysisRuleSet>
+    <!-- Set warning level to hightest value 5 and treat compile warnings as errors-->
+    <WarningLevel>5</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+
+    <!-- Set fixed analysis level 5, enable all rules and treat warnings as errors -->
+    <AnalysisLevel>5</AnalysisLevel>
+    <AnalysisMode>AllEnabledByDefault</AnalysisMode>
+    <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
+
+    <!-- Set C# language version 10.0 -->
+    <LangVersion>10.0</LangVersion>
+
+	<!-- By default no project is packable but can be overridden if needed -->
+    <IsPackable>false</IsPackable>
+    <!-- Create snupkg packages -->
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <!-- ATTENTION: This settings must currently be not used because of implicit build - https://github.com/dotnet/sdk/issues/10335 -->
+	<!-- Automatically generate nupkg on build to ensure pack will run with current state -->
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+
+    <!-- Test projects are named "[Project under test].Test" and automatically reference necessary dependencies -->
+    <IsTestProject>$(MSBuildProjectName.EndsWith('.Tests'))</IsTestProject>
   </PropertyGroup>
 
   <ItemGroup>
-    <AdditionalFiles Include="$(MSBuildThisFileDirectory)stylecop.json" Link="stylecop.json" />
+    <!-- Add global editor config file -->
+    <EditorConfigFiles Include="$(MSBuildThisFileDirectory).editorconfig_global" />
   </ItemGroup>
-  
+
+  <!-- Enable git versioning via accompanying version.json -->
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.6" PrivateAssets="All" />
-    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" PrivateAssets="All" />
-  </ItemGroup>-->
+    <PackageReference Include="Nerdbank.GitVersioning" Version="3.4.244">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <!-- All libraries should be CLS compliant by default -->
+  <ItemGroup>
+    <AssemblyAttribute Include="System.CLSCompliantAttribute">
+      <_Parameter1>true</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+
+  <!-- All libraries should have NeutralResourcesLanguageAttribute by default -->
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Resources.NeutralResourcesLanguageAttribute">
+      <_Parameter1>en</_Parameter1>
+	  <_Parameter2>MainAssembly</_Parameter2>
+      <_Parameter2_TypeName>System.Resources.UltimateResourceFallbackLocation</_Parameter2_TypeName>
+    </AssemblyAttribute>
+  </ItemGroup>
+
+  <!-- Enable access to internal variables to accompanying "[Project under test].Test" project with implicit InternalsVisibleTo attribute -->
+  <ItemGroup Condition="!$(IsTestProject)">
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>$(AssemblyName).Tests, PublicKey=0024000004800000940000000602000000240000525341310004000001000100E95F35153D14B61317D9C6BDB72C8FFC2B5BF2E71A3A5061184E44F61901823E38A1F566500A21BD2B12A0ADD818EA40113C5E24555E82DF156BDCB3342B37116FECF2A2916E9061431882C6A3125E00235F156E8FD3A223A71EA03D2E476C64B0B365015FA21DFF9880B246856BE5451B4ACACC6D66A0B3CE1B890679BD07E6</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+
+  <!-- Set coverage output directory and format for test projects -->
+  <PropertyGroup Condition="$(IsTestProject) AND '$(CollectCoverage)' == 'true'">
+    <CoverletOutput Condition="'$(CoverletOutputDir)' != '' AND '$(CoverletOutput)' == ''">$(CoverletOutputDir)/$(MSBuildProjectName).xml</CoverletOutput>
+    <CoverletOutputFormat Condition="'$(CoverletOutputFormat)' == ''">cobertura</CoverletOutputFormat>
+  </PropertyGroup>
+
+  <!-- Test projects automatically reference necessary dependencies -->
+  <ItemGroup Condition="$(IsTestProject)">
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
+    <PackageReference Include="xunit" Version="2.4.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3" />
+    <PackageReference Include="coverlet.msbuild" Version="3.1.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
 
 </Project>
