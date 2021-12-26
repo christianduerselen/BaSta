@@ -1,14 +1,13 @@
 ﻿using System.IO;
 using BaSta.IO.Dbase;
 using BaSta.Test.Resources;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace BaSta.Test.IO.Dbase
 {
-    [TestClass]
     public class DbaseParserTest
     {
-        [TestMethod]
+        [Fact]
         public void DbaseParser_ConstructorTest()
         {
             byte[] actionFileData = ResourceHelper.TryExtractResource(EmbeddedResources.Example2ActionsDatabase);

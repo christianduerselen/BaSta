@@ -1,3 +1,0 @@
-﻿[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA0001", Justification = "Not necessary in Test projects.")]
-[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600", Justification = "Not necessary in Test projects.")]
-[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Analyzers.ManagedCodeAnalysis", "CA1812", Justification = "Not necessary in Test projects.")]

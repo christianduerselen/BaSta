@@ -6,14 +6,14 @@ namespace BaSta.Core
     /// <summary>
     /// Process implementation providing the capability to an external action.
     /// </summary>
-    internal class ExternalActionProcess : ProcessBase
+    public class ExternalActionProcess : ProcessBase
     {
         private readonly Action<CancellationToken> _process;
 
         /// <summary>
         /// Prevents a default instance of the <see cref="ExternalActionProcess"/> class from being created.
         /// </summary>
-        internal ExternalActionProcess(Action<CancellationToken> process)
+        public ExternalActionProcess(Action<CancellationToken> process)
         {
             _process = process;
         }

@@ -12,8 +12,6 @@ using NLog;
 using NLog.Config;
 using NLog.Targets;
 
-[assembly: InternalsVisibleTo("BaSta.Test, PublicKey=" + AssemblyConstants.PublicKey)]
-
 namespace BaSta.TimeSync
 {
     /// <summary>

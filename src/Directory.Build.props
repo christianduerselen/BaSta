@@ -17,12 +17,12 @@
 
     <!-- Set warning level to hightest value 5 and treat compile warnings as errors-->
     <WarningLevel>5</WarningLevel>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
 
     <!-- Set fixed analysis level 5, enable all rules and treat warnings as errors -->
-    <AnalysisLevel>5</AnalysisLevel>
+    <!-- <AnalysisLevel>5</AnalysisLevel>
     <AnalysisMode>AllEnabledByDefault</AnalysisMode>
-    <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
+    <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors> -->
 
     <!-- Set C# language version 10.0 -->
     <LangVersion>10.0</LangVersion>
@@ -54,11 +54,11 @@
   </ItemGroup>
 
   <!-- All libraries should be CLS compliant by default -->
-  <ItemGroup>
+  <!-- <ItemGroup>
     <AssemblyAttribute Include="System.CLSCompliantAttribute">
       <_Parameter1>true</_Parameter1>
     </AssemblyAttribute>
-  </ItemGroup>
+  </ItemGroup> -->
 
   <!-- All libraries should have NeutralResourcesLanguageAttribute by default -->
   <ItemGroup>
@@ -73,6 +73,9 @@
   <ItemGroup Condition="!$(IsTestProject)">
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
       <_Parameter1>$(AssemblyName).Tests, PublicKey=0024000004800000940000000602000000240000525341310004000001000100E95F35153D14B61317D9C6BDB72C8FFC2B5BF2E71A3A5061184E44F61901823E38A1F566500A21BD2B12A0ADD818EA40113C5E24555E82DF156BDCB3342B37116FECF2A2916E9061431882C6A3125E00235F156E8FD3A223A71EA03D2E476C64B0B365015FA21DFF9880B246856BE5451B4ACACC6D66A0B3CE1B890679BD07E6</_Parameter1>
+    </AssemblyAttribute>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>BaSta.Tests, PublicKey=0024000004800000940000000602000000240000525341310004000001000100E95F35153D14B61317D9C6BDB72C8FFC2B5BF2E71A3A5061184E44F61901823E38A1F566500A21BD2B12A0ADD818EA40113C5E24555E82DF156BDCB3342B37116FECF2A2916E9061431882C6A3125E00235F156E8FD3A223A71EA03D2E476C64B0B365015FA21DFF9880B246856BE5451B4ACACC6D66A0B3CE1B890679BD07E6</_Parameter1>
     </AssemblyAttribute>
   </ItemGroup>
 

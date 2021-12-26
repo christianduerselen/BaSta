@@ -7,7 +7,7 @@ namespace BaSta.Core
     /// <summary>
     /// Abstract base class for process instances.
     /// </summary>
-    internal abstract class ProcessBase : ProcessTaskBase
+    public abstract class ProcessBase : ProcessTaskBase
     {
         private Task _task;
         private CancellationTokenSource _cancellationTokenSource;

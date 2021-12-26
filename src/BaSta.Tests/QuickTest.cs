@@ -4,14 +4,13 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using BaSta.TimeSync.Output;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace BaSta.Test
 {
-    [TestClass]
     public class QuickTest
     {
-        [TestMethod]
+        [Fact]
         public void CharToByte()
         {
             char[] numberChars = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
@@ -21,7 +20,7 @@ namespace BaSta.Test
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void StramatelClassic_ParseTest()
         {
             string fileLocation = @"C:\Users\m1cdu\Desktop\output_2020-02-16_17-05-31.log";
@@ -41,7 +40,7 @@ namespace BaSta.Test
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void StramatelClassic_ParseTest2()
         {
             string fileLocation = @"C:\Users\m1cdu\Desktop\14400_Q1 - Kopie";
@@ -366,7 +365,7 @@ namespace BaSta.Test
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void ScoutSendTest()
         {
             var a = new ScoutTimeOutput();
