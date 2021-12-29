@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using BaSta.TimeSync.Input;
 using BaSta.TimeSync.Input.Bodet;
+using BaSta.TimeSync.Input.Stramatel;
 using BaSta.TimeSync.Output;
 using NLog;
 
@@ -17,10 +18,9 @@ namespace BaSta.TimeSync
 
         private static readonly IDictionary<string, Type> InputTypes = new Dictionary<string, Type>
         {
-            { StramatelClassicFileInputTask.TypeName, typeof(StramatelClassicFileInputTask) },
-            { StramatelClassicSerialInputTask.TypeName, typeof(StramatelClassicSerialInputTask) },
             { UimTimeInput.TypeName, typeof(UimTimeInput) },
-            { BodetSerialInputTask.TypeName, typeof(BodetSerialInputTask) }
+            { BodetSerialInput.TypeName, typeof(BodetSerialInput) },
+            { StramatelSerialInput.TypeName, typeof(StramatelSerialInput) }
         };
 
         private static readonly IDictionary<string, Type> OutputTypes = new Dictionary<string, Type>
