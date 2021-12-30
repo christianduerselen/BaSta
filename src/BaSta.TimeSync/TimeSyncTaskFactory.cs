@@ -4,6 +4,7 @@ using System.Reflection;
 using BaSta.TimeSync.Input;
 using BaSta.TimeSync.Input.Bodet;
 using BaSta.TimeSync.Input.Stramatel;
+using BaSta.TimeSync.Input.Wige;
 using BaSta.TimeSync.Output;
 using NLog;
 
@@ -20,7 +21,8 @@ namespace BaSta.TimeSync
         {
             { UimTimeInput.TypeName, typeof(UimTimeInput) },
             { BodetSerialInput.TypeName, typeof(BodetSerialInput) },
-            { StramatelSerialInput.TypeName, typeof(StramatelSerialInput) }
+            { StramatelSerialInput.TypeName, typeof(StramatelSerialInput) },
+            { WigeSerialInput.TypeName, typeof(WigeSerialInput) }
         };
 
         private static readonly IDictionary<string, Type> OutputTypes = new Dictionary<string, Type>

@@ -2,6 +2,7 @@
 using System.Threading;
 using BaSta.TimeSync;
 using BaSta.TimeSync.Input.Stramatel;
+using BaSta.TimeSync.Input.Wige;
 using BaSta.TimeSync.Output;
 using Xunit;
 
@@ -30,6 +31,19 @@ namespace BaSta.Tests
         public void StramatelSerialInput_Test()
         {
             StramatelSerialInput input = new StramatelSerialInput();
+            MemoryTimeSyncSettingsGroup settings = new();
+            settings.AddSetting("PortName", "COM10");
+            input.LoadSettings("", settings);
+
+            input.Initialize();
+
+            while (true) { }
+        }
+
+        [Fact]
+        public void WigeSerialInput_Test()
+        {
+            WigeSerialInput input = new WigeSerialInput();
             MemoryTimeSyncSettingsGroup settings = new();
             settings.AddSetting("PortName", "COM10");
             input.LoadSettings("", settings);

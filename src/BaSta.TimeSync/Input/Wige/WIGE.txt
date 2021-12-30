@@ -1,0 +1,17 @@
+37.3|2.9|14:7
+Time|Shotclock|ScoreHome:ScoreGuest
+
+123:45
+123:45.5
+123:45.
+45.5
+45.
+6.
+0.5
+.5
+
+{minutes}:{seconds}.{milliseconds}
+
+([0-9]*): - minutes
+([0-9]*)\.|:([0-9]*) - seconds
+\.([0-9]*) - milliseconds

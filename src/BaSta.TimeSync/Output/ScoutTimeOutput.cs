@@ -51,20 +51,25 @@ namespace BaSta.TimeSync.Output
 
                 LastSync = now;
 
-                string text = $"TMT{_value:hh\\:mm\\:ss}";
+                TimeSpan value = _value.Value;
+
+                // In case milliseconds are available, increase second value
+                if (value.Milliseconds > 0)
+                    value = value.Add(TimeSpan.FromSeconds(1));
+
+                string text = $"TMT{value:hh\\:mm\\:ss}";
 
                 Logger.Debug(text);
 
                 byte[] textBytes = Encoding.ASCII.GetBytes(text);
-
                 byte[] sendBytes = new byte[textBytes.Length + 3];
+                Array.Copy(textBytes, 0, sendBytes, 1, textBytes.Length);
+                
+                sendBytes[0] = 0x02; // STX
+                sendBytes[^1] = 0x03; // ETX
 
                 Crc8.ComputeHash(new ReadOnlySpan<byte>(textBytes), out byte hash);
-
-                sendBytes[0] = 0x02; // STX
-                Array.Copy(textBytes, 0, sendBytes, 1, textBytes.Length);
                 sendBytes[^2] = hash;
-                sendBytes[^1] = 0x03; // ETX
 
                 _socket.SendTo(sendBytes, _destinationEndpoint);
             }
