@@ -24,16 +24,6 @@ internal class WigeSerialInput : TimeSyncTaskBase, ITimeSyncInputTask
 
     protected override void LoadSettings(ITimeSyncSettingsGroup settings)
     {
-        // PortName=COM1
-        // BaudRate=19200
-        // # 0 = None | 1 = Odd | 2 = Even | 3 = Mark | 4 = Space
-        // Parity=0
-        // DataBits=8
-        // # 1 = One | 2 = Two | 3 = OnePointFive
-        // StopBits=1
-        // # 0 = None | 1 = XOnXOff | 2 = RequestToSend | 3 = RequestToSendXOnXOff
-        // Handshake=0
-
         _port = new SerialPort
         {
             PortName = settings.GetValue("PortName", s =>

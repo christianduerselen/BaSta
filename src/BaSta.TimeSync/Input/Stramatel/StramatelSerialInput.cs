@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Globalization;
 using System.IO.Ports;
 using System.Linq;
 using System.Text;
@@ -13,20 +12,12 @@ internal class StramatelSerialInput : TimeSyncTaskBase, ITimeSyncInputTask
 {
     internal const string TypeName = "Stramatel";
 
+    private readonly byte[] _receiveBuffer = new byte[ushort.MaxValue];
     private SerialPort _port;
+    private TimeSpan _lastUsedTime;
 
     protected override void LoadSettings(ITimeSyncSettingsGroup settings)
     {
-        // PortName=COM1
-        // BaudRate=19200
-        // # 0 = None | 1 = Odd | 2 = Even | 3 = Mark | 4 = Space
-        // Parity=0
-        // DataBits=8
-        // # 1 = One | 2 = Two | 3 = OnePointFive
-        // StopBits=1
-        // # 0 = None | 1 = XOnXOff | 2 = RequestToSend | 3 = RequestToSendXOnXOff
-        // Handshake=0
-
         _port = new SerialPort
         {
             PortName = settings.GetValue("PortName", s =>
@@ -51,8 +42,6 @@ internal class StramatelSerialInput : TimeSyncTaskBase, ITimeSyncInputTask
     {
         _port.Open();
     }
-
-    private readonly byte[] _receiveBuffer = new byte[ushort.MaxValue];
 
     protected override void OnProcess(CancellationToken cancellationToken)
     {
@@ -132,8 +121,6 @@ internal class StramatelSerialInput : TimeSyncTaskBase, ITimeSyncInputTask
     {
         _port.Close();
     }
-
-    private TimeSpan _lastUsedTime;
 
     public TimeSpan Pull()
     {

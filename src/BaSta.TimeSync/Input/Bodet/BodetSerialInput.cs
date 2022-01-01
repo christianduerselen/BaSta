@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Globalization;
 using System.IO.Ports;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using BaSta.TimeSync.Helper;
 
@@ -10,20 +12,12 @@ internal class BodetSerialInput : TimeSyncTaskBase, ITimeSyncInputTask
 {
     internal const string TypeName = "Bodet";
 
+    private readonly byte[] _receiveBuffer = new byte[ushort.MaxValue];
     private SerialPort _port;
+    private TimeSpan _lastUsedTime;
 
     protected override void LoadSettings(ITimeSyncSettingsGroup settings)
     {
-        // PortName=COM1
-        // BaudRate=19200
-        // # 0 = None | 1 = Odd | 2 = Even | 3 = Mark | 4 = Space
-        // Parity=0
-        // DataBits=8
-        // # 1 = One | 2 = Two | 3 = OnePointFive
-        // StopBits=1
-        // # 0 = None | 1 = XOnXOff | 2 = RequestToSend | 3 = RequestToSendXOnXOff
-        // Handshake=0
-
         _port = new SerialPort
         {
             PortName = settings.GetValue("PortName", s =>
@@ -46,23 +40,112 @@ internal class BodetSerialInput : TimeSyncTaskBase, ITimeSyncInputTask
 
     protected override void OnStartSync()
     {
-        throw new NotImplementedException();
+        _port.Open();
     }
 
     protected override void OnProcess(CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        while (!cancellationToken.IsCancellationRequested)
+        {
+            Thread.Sleep(1);
+
+            if (_port.BytesToRead <= 0)
+                continue;
+
+            int length = _port.Read(_receiveBuffer, 0, _receiveBuffer.Length);
+
+            byte[] data = new byte[length];
+            Array.Copy(_receiveBuffer, 0, data, 0, data.Length);
+
+            // The received data may contain multiple frames, therefore iterate over data
+            do
+            {
+                // Search for the first SOH/0x01 byte and ETX/0x03 bytes
+                int frameStart = Array.IndexOf(data, (byte) 0x01);
+                int frameEnd = Array.IndexOf(data, (byte) 0x03);
+
+                // Frame start and end should be available, appropriately placed and there should be an additional LRC byte
+                if (frameStart < 0 || frameEnd < 0 || frameEnd < frameStart + 2 || frameEnd >= data.Length)
+                    break;
+
+                // Message data from address (byte #2) to ETX
+                byte[] messageData = new byte[frameEnd - frameStart - 1];
+                Array.Copy(data, frameStart + 1, messageData, 0, messageData.Length);
+                // Message LRC is from byte #2 to 
+                byte messageLrc = data[frameEnd + 1];
+
+                // Remaining data starts after LRC
+                byte[] remainingData = new byte[data.Length - frameEnd - 1];
+                Array.Copy(data, frameEnd + 2, remainingData, 0, remainingData.Length);
+                data = remainingData;
+
+                // Verify LRC
+                if (messageLrc != CalculateLrc(messageData))
+                    continue;
+
+                // Only message types 18 (main timer) and 36 (main timer tenth of second)
+                bool isMessageType18 = messageData[3] == 0x31 && messageData[4] == 0x38;
+                bool isMessageType36 = messageData[3] == 0x33 && messageData[4] == 0x36;
+
+                if (isMessageType18 || isMessageType36)
+                    continue;
+
+                if (isMessageType18)
+                {
+                    string timeText = Encoding.ASCII.GetString(messageData, 7, 4);
+                    if (timeText[2] == 'D')
+                    {
+                        timeText = timeText.Replace('D', '.');
+                        double seconds = double.Parse(timeText, NumberStyles.Float, CultureInfo.InvariantCulture);
+                        
+                        _lastUsedTime = TimeSpan.FromSeconds(seconds);
+                    }
+                    else
+                    {
+                        int minutes = int.Parse(timeText.Substring(0, 2));
+                        int seconds = int.Parse(timeText.Substring(2, 2));
+                        _lastUsedTime = new TimeSpan(0, minutes, seconds);
+                    }
+                }
+
+                if (isMessageType36)
+                {
+                    string timeText = Encoding.ASCII.GetString(messageData, 5, 3);
+                    double seconds = double.Parse(timeText);
+                    seconds /= 10;
+
+                    _lastUsedTime = TimeSpan.FromSeconds(seconds);
+                }
+
+                StateChanged?.Invoke(this, null);
+            } while (true);
+        }
     }
 
     protected override void OnStopSync()
     {
-        throw new NotImplementedException();
+        _port.Close();
     }
 
     public TimeSpan Pull()
     {
-        throw new NotImplementedException();
+        return _lastUsedTime;
     }
 
     public event EventHandler StateChanged;
+
+    private byte CalculateLrc(byte[] messageData)
+    {
+        byte checkLrc = 0x00;
+        
+        foreach (byte messageByte in messageData)
+            checkLrc ^= messageByte;
+        
+        checkLrc &= 0x7f;
+        
+        if (checkLrc < 0x20)
+            checkLrc += 0x20;
+        
+        return checkLrc;
+    }
 }
