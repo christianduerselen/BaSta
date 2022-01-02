@@ -4,13 +4,12 @@ using System.IO.Ports;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using BaSta.TimeSync.Helper;
 
-namespace BaSta.TimeSync.Input.Stramatel;
+namespace BaSta.Link.Stramatel;
 
-internal class StramatelSerialInput : TimeSyncTaskBase, ITimeSyncInputTask
+public class StramatelSerialInput : TimeSyncTaskBase, ITimeSyncInputTask
 {
-    internal const string TypeName = "Stramatel";
+    public const string TypeName = "Stramatel";
 
     private readonly byte[] _receiveBuffer = new byte[ushort.MaxValue];
     private SerialPort _port;

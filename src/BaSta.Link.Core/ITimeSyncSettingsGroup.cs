@@ -1,15 +1,15 @@
 ﻿using System;
 
-namespace BaSta.TimeSync
+namespace BaSta.Link
 {
-    internal interface ITimeSyncSettingsGroup
+    public interface ITimeSyncSettingsGroup
     {
         string Name { get; }
 
         string? GetSetting(string name);
     }
 
-    internal static class ITimeSyncSettingsGroupExtensions
+    public static class ITimeSyncSettingsGroupExtensions
     {
         public static T GetValue<T>(this ITimeSyncSettingsGroup settings, string name, Func<string, T> convertFunc, T defaultValue)
         {

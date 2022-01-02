@@ -6,7 +6,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BaSta.Core\BaSta.Core.csproj" />
-    <ProjectReference Include="..\BaSta.TimeSync\BaSta.TimeSync.csproj" />
+    <ProjectReference Include="..\BaSta.Link.Bodet\BaSta.Link.Bodet.csproj" />
+    <ProjectReference Include="..\BaSta.Link.Core\BaSta.Link.Core.csproj" />
+    <ProjectReference Include="..\BaSta.Link.Stramatel\BaSta.Link.Stramatel.csproj" />
+    <ProjectReference Include="..\BaSta.Link.SwissTiming\BaSta.Link.SwissTiming.csproj" />
+    <ProjectReference Include="..\BaSta.Link.Wige\BaSta.Link.Wige.csproj" />
   </ItemGroup>
 
   <ItemGroup>

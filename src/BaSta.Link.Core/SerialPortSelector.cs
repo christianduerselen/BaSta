@@ -3,11 +3,11 @@ using System.IO.Ports;
 using System.Linq;
 using System.Management;
 
-namespace BaSta.TimeSync.Helper
+namespace BaSta.Link
 {
-    internal static class SerialPortSelector
+    public static class SerialPortSelector
     {
-        internal static string Select(string name)
+        public static string Select(string name)
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
 

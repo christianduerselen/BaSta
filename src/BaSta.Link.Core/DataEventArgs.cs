@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BaSta.TimeSync.Input
+namespace BaSta.Link
 {
     public class DataEventArgs<TType> : EventArgs
     {

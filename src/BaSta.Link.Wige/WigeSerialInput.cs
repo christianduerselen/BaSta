@@ -5,13 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
-using BaSta.TimeSync.Helper;
 
-namespace BaSta.TimeSync.Input.Wige;
+namespace BaSta.Link.Wige;
 
-internal class WigeSerialInput : TimeSyncTaskBase, ITimeSyncInputTask
+public class WigeSerialInput : TimeSyncTaskBase, ITimeSyncInputTask
 {
-    internal const string TypeName = "WIGE";
+    public const string TypeName = "WIGE";
     
     private static readonly Regex MinuteExpression = new("([0-9]*):");
     private static readonly Regex SecondExpression = new("([0-9]*)\\.|:([0-9]*)");
@@ -95,7 +94,7 @@ internal class WigeSerialInput : TimeSyncTaskBase, ITimeSyncInputTask
                     if (match.Groups.Count <= 1)
                         return 0;
 
-                    string matchText = match.Groups.Values.Skip(1).Select(x => x.Value).Aggregate((a, b) => a + b);
+                    string matchText = match.Groups.Skip(1).Select(x => x.Value).Aggregate((a, b) => a + b);
                     matchText = matchText.PadLeft(paddingLeft, '0');
                     matchText = matchText.PadRight(paddingRight, '0');
                     return int.Parse(matchText);

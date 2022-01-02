@@ -4,13 +4,12 @@ using System.IO.Ports;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using BaSta.TimeSync.Helper;
 
-namespace BaSta.TimeSync.Input.Bodet;
+namespace BaSta.Link.Bodet;
 
-internal class BodetSerialInput : TimeSyncTaskBase, ITimeSyncInputTask
+public class BodetSerialInput : TimeSyncTaskBase, ITimeSyncInputTask
 {
-    internal const string TypeName = "Bodet";
+    public const string TypeName = "Bodet";
 
     private readonly byte[] _receiveBuffer = new byte[ushort.MaxValue];
     private SerialPort _port;

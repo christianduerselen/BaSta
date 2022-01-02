@@ -2,16 +2,15 @@
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 
-namespace BaSta.TimeSync.Input
+namespace BaSta.Link.SwissTiming
 {
-    internal class UimTimeInput : TimeSyncTaskBase, ITimeSyncInputTask
+    public class UimTimeInput : TimeSyncTaskBase, ITimeSyncInputTask
     {
-        internal const string TypeName = "UIM";
+        public const string TypeName = "UIM";
 
         private IPEndPoint _localEndpoint;
         private Socket _socket;

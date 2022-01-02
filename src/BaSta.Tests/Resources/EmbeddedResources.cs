@@ -1,4 +1,4 @@
-﻿namespace BaSta.Test.Resources
+﻿namespace BaSta.Tests.Resources
 {
     /// <summary>
     /// Static class containing names of all available embedded resources of this assembly.

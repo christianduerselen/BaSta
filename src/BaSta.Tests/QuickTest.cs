@@ -1,56 +1,69 @@
 ﻿using System;
 using System.Threading;
-using BaSta.TimeSync;
-using BaSta.TimeSync.Input.Stramatel;
-using BaSta.TimeSync.Input.Wige;
-using BaSta.TimeSync.Output;
+using BaSta.Link;
+using BaSta.Link.Bodet;
+using BaSta.Link.Stramatel;
+using BaSta.Link.SwissTiming;
+using BaSta.Link.Wige;
 using Xunit;
 
-namespace BaSta.Tests
+namespace BaSta.Tests;
+
+public class QuickTest
 {
-    public class QuickTest
+    [Fact]
+    public void ScoutSendTest()
     {
-        [Fact]
-        public void ScoutSendTest()
+        ScoutTimeOutput output = new();
+        MemoryTimeSyncSettingsGroup settings = new();
+
+        output.LoadSettings("", settings);
+        output.IsEnabled = true;
+        output.Initialize();
+
+        for (int i = 0; i < 60; i++)
         {
-            var a = new ScoutTimeOutput();
-            MemoryTimeSyncSettingsGroup settings = new MemoryTimeSyncSettingsGroup();
-
-            a.LoadSettings("", settings);
-            a.IsEnabled = true;
-            a.Initialize();
-
-            for (int i = 0; i < 60; i++)
-            {
-                a.Push(new TimeSpan(0, 7, i));
-                Thread.Sleep(1000);
-            }
+            output.Push(new TimeSpan(0, 7, i));
+            Thread.Sleep(1000);
         }
+    }
 
-        [Fact]
-        public void StramatelSerialInput_Test()
-        {
-            StramatelSerialInput input = new StramatelSerialInput();
-            MemoryTimeSyncSettingsGroup settings = new();
-            settings.AddSetting("PortName", "COM10");
-            input.LoadSettings("", settings);
+    [Fact]
+    public void StramatelSerialInput_Test()
+    {
+        StramatelSerialInput input = new();
+        MemoryTimeSyncSettingsGroup settings = new();
+        settings.AddSetting("PortName", "COM10");
+        input.LoadSettings("", settings);
 
-            input.Initialize();
+        input.Initialize();
 
-            while (true) { }
-        }
+        while (true) { }
+    }
 
-        [Fact]
-        public void WigeSerialInput_Test()
-        {
-            WigeSerialInput input = new WigeSerialInput();
-            MemoryTimeSyncSettingsGroup settings = new();
-            settings.AddSetting("PortName", "COM10");
-            input.LoadSettings("", settings);
+    [Fact]
+    public void WigeSerialInput_Test()
+    {
+        WigeSerialInput input = new();
+        MemoryTimeSyncSettingsGroup settings = new();
+        settings.AddSetting("PortName", "COM10");
+        input.LoadSettings("", settings);
 
-            input.Initialize();
+        input.Initialize();
 
-            while (true) { }
-        }
+        while (true) { }
+    }
+
+    [Fact]
+    public void BodetSerialInput_Test()
+    {
+        BodetSerialInput input = new();
+        MemoryTimeSyncSettingsGroup settings = new();
+        settings.AddSetting("PortName", "COM10");
+        input.LoadSettings("", settings);
+
+        input.Initialize();
+
+        while (true) { }
     }
 }

@@ -2,9 +2,9 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace BaSta.TimeSync
+namespace BaSta.Link
 {
-    internal class TimeSyncSettings
+    public class TimeSyncSettings
     {
         public TimeSyncSettings(ITimeSyncSettingsGroup inputSettings, IEnumerable<ITimeSyncSettingsGroup> outputSettings)
         {

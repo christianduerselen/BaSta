@@ -1,6 +1,6 @@
 ﻿using System.IO;
 using BaSta.IO.Dbase;
-using BaSta.Test.Resources;
+using BaSta.Tests.Resources;
 using Xunit;
 
 namespace BaSta.Tests.IO.Dbase;

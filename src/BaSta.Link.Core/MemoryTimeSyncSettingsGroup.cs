@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace BaSta.TimeSync;
+namespace BaSta.Link;
 
-internal class MemoryTimeSyncSettingsGroup : ITimeSyncSettingsGroup
+public class MemoryTimeSyncSettingsGroup : ITimeSyncSettingsGroup
 {
     private readonly IDictionary<string, string> _settings = new Dictionary<string, string>();
 

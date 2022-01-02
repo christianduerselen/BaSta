@@ -5,13 +5,13 @@ using System.Text;
 using System.Threading;
 using Roydl.Crypto.Checksum;
 
-namespace BaSta.TimeSync.Output
+namespace BaSta.Link.SwissTiming
 {
-    internal class ScoutTimeOutput : TimeSyncTaskBase, ITimeSyncOutputTask
+    public class ScoutTimeOutput : TimeSyncTaskBase, ITimeSyncOutputTask
     {
         private static readonly CrcConfig Crc8 = new(8, 0xb1, 0x01, 0x80);
 
-        internal const string TypeName = "ActionScout";
+        public const string TypeName = "ActionScout";
 
         private Socket _socket;
         private IPEndPoint _localEndpoint;
