@@ -4,9 +4,9 @@
     <TargetFramework>net6.0</TargetFramework>
     <OutputType>Exe</OutputType>
 
-    <!-- <PublishReadyToRun>true</PublishReadyToRun>
+    <PublishReadyToRun>true</PublishReadyToRun>
     <PublishSingleFile>true</PublishSingleFile>
-    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract> -->
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
     
     <ApplicationIcon>Resources\Application.ico</ApplicationIcon>
   </PropertyGroup>
