@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO.Ports;
 using System.Linq;
@@ -74,19 +75,19 @@ public class BodetSerialInput : TimeSyncTaskBase, ITimeSyncInputTask
                 byte messageLrc = data[frameEnd + 1];
 
                 // Remaining data starts after LRC
-                byte[] remainingData = new byte[data.Length - frameEnd - 1];
+                byte[] remainingData = new byte[data.Length - frameEnd - 2];
                 Array.Copy(data, frameEnd + 2, remainingData, 0, remainingData.Length);
                 data = remainingData;
 
                 // Verify LRC
-                if (messageLrc != CalculateLrc(messageData))
-                    continue;
+                //if (messageLrc != CalculateLrc(messageData))
+                //    continue;
 
                 // Only message types 18 (main timer) and 36 (main timer tenth of second)
                 bool isMessageType18 = messageData[3] == 0x31 && messageData[4] == 0x38;
                 bool isMessageType36 = messageData[3] == 0x33 && messageData[4] == 0x36;
 
-                if (isMessageType18 || isMessageType36)
+                if (!isMessageType18 && !isMessageType36)
                     continue;
 
                 if (isMessageType18)
@@ -116,6 +117,7 @@ public class BodetSerialInput : TimeSyncTaskBase, ITimeSyncInputTask
                     _lastUsedTime = TimeSpan.FromSeconds(seconds);
                 }
 
+                Debug.WriteLine($"New time: {_lastUsedTime}");
                 StateChanged?.Invoke(this, null);
             } while (true);
         }

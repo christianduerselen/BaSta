@@ -59,7 +59,7 @@ public class QuickTest
     {
         BodetSerialInput input = new();
         MemoryTimeSyncSettingsGroup settings = new();
-        settings.AddSetting("PortName", "COM10");
+        settings.AddSetting("PortName", "COM5");
         input.LoadSettings("", settings);
 
         input.Initialize();
