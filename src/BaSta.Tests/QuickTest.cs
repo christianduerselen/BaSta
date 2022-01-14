@@ -33,7 +33,7 @@ public class QuickTest
     {
         StramatelSerialInput input = new();
         MemoryTimeSyncSettingsGroup settings = new();
-        settings.AddSetting("PortName", "COM10");
+        settings.AddSetting("PortName", "COM7");
         input.LoadSettings("", settings);
 
         input.Initialize();

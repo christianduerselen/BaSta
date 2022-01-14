@@ -46,7 +46,7 @@ public class StramatelSerialInput : TimeSyncTaskBase, ITimeSyncInputTask
     {
         while (!cancellationToken.IsCancellationRequested)
         {
-            Thread.Sleep(1);
+            Thread.Sleep(100);
 
             if (_port.BytesToRead <= 0)
                 continue;
@@ -55,6 +55,8 @@ public class StramatelSerialInput : TimeSyncTaskBase, ITimeSyncInputTask
 
             byte[] data = new byte[length];
             Array.Copy(_receiveBuffer, 0, data, 0, data.Length);
+
+            Debug.WriteLine($"[Stramatel] Received {length} bytes");
 
             // The received data may contain multiple frames, therefore iterate over data
             do

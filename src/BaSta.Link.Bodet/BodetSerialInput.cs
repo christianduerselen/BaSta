@@ -72,11 +72,11 @@ public class BodetSerialInput : TimeSyncTaskBase, ITimeSyncInputTask
                 byte[] messageData = new byte[frameEnd - frameStart - 1];
                 Array.Copy(data, frameStart + 1, messageData, 0, messageData.Length);
                 // Message LRC is from byte #2 to 
-                byte messageLrc = data[frameEnd + 1];
-
-                // Remaining data starts after LRC
-                byte[] remainingData = new byte[data.Length - frameEnd - 2];
-                Array.Copy(data, frameEnd + 2, remainingData, 0, remainingData.Length);
+                byte? messageLrc = data.Length < frameEnd ? data[frameEnd + 1] : null;
+                
+                // Remaining data starts after ETX (if LRC available it's included)
+                byte[] remainingData = new byte[data.Length - frameEnd - 1];
+                Array.Copy(data, frameEnd + 1, remainingData, 0, remainingData.Length);
                 data = remainingData;
 
                 // Verify LRC

@@ -1,0 +1,21 @@
+﻿namespace BaSta.Protocol.Nautronic;
+
+public enum MCB_Commands
+{
+    SET_RELAY = 0,
+    SET_TIME = 1,
+    GET_TIME = 2,
+    SET_BOARD_ONOFF_TIME = 3,
+    SET_BOARD_DELAY_TIME = 4,
+    GET_GROUP = 5,
+    SET_GROUP = 6,
+    CLEAR_TEST_COUNTER = 7,
+    INC_TEST_COUNTER = 8,
+    GET_TEST_COUNTER = 9,
+    SHOW_DEBUG_COUNTER = 10, // 0x0000000A
+    GET_PISO_DIP = 11, // 0x0000000B
+    SET_POWER = 12, // 0x0000000C
+    CLEAR_ALL = 13, // 0x0000000D
+    SET_SYNC_MASTER = 14, // 0x0000000E
+    REMOTE_KEY = 31, // 0x0000001F
+}
