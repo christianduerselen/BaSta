@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Linq;
-using System.Text;
 using BaSta.Model;
 
 namespace BaSta.Protocol.Stramatel;
@@ -11,22 +9,22 @@ public class StramatelMessage0x37 : IStramatelMessage
     {
     }
 
-    public Possession? Possession { get; private set; }
+    public PossessionState Possession { get; private set; }
     public TimeSpan? GameClock { get; private set; }
     public bool? Horn { get; private set; }
     public bool? GameClockRunning { get; private set; }
-    public int? GuestPlayer1Points { get; private set; }
-    public int? GuestPlayer2Points { get; private set; }
-    public int? GuestPlayer3Points { get; private set; }
-    public int? GuestPlayer4Points { get; private set; }
-    public int? GuestPlayer5Points { get; private set; }
-    public int? GuestPlayer6Points { get; private set; }
-    public int? GuestPlayer7Points { get; private set; }
-    public int? GuestPlayer8Points { get; private set; }
-    public int? GuestPlayer9Points { get; private set; }
-    public int? GuestPlayer10Points { get; private set; }
-    public int? GuestPlayer11Points { get; private set; }
-    public int? GuestPlayer12Points { get; private set; }
+    public int? PointsGuestPlayer1 { get; private set; }
+    public int? PointsGuestPlayer2 { get; private set; }
+    public int? PointsGuestPlayer3 { get; private set; }
+    public int? PointsGuestPlayer4 { get; private set; }
+    public int? PointsGuestPlayer5 { get; private set; }
+    public int? PointsGuestPlayer6 { get; private set; }
+    public int? PointsGuestPlayer7 { get; private set; }
+    public int? PointsGuestPlayer8 { get; private set; }
+    public int? PointsGuestPlayer9 { get; private set; }
+    public int? PointsGuestPlayer10 {get; private set; }
+    public int? PointsGuestPlayer11{ get; private set; }
+    public int? PointsGuestPlayer12 { get; private set; }
     public TimeSpan? ShotClock { get; private set; }
     public bool? ShotClockHorn { get; private set; }
     public bool? ShotClockRunning { get; private set; }
@@ -34,93 +32,54 @@ public class StramatelMessage0x37 : IStramatelMessage
 
     public static IStramatelMessage Parse(byte[] messageData)
     {
-        StramatelMessage0x37 message = new StramatelMessage0x37();
-        message.Possession = messageData[3].ParseStramatelPossession();
-        message.GameClock = messageData[4..8].ParseStramatelGameClock();
-        message.Horn = messageData[19].ParseStramatelBoolean();
-        message.GameClockRunning = messageData[20].ParseStramatelBoolean();
-        message.GuestPlayer1Points = messageData[22..24].ParseStramatelNumber();
-        message.GuestPlayer2Points = messageData[24..26].ParseStramatelNumber();
-        message.GuestPlayer3Points = messageData[26..28].ParseStramatelNumber();
-        message.GuestPlayer4Points = messageData[28..30].ParseStramatelNumber();
-        message.GuestPlayer5Points = messageData[30..32].ParseStramatelNumber();
-        message.GuestPlayer6Points = messageData[32..34].ParseStramatelNumber();
-        message.GuestPlayer7Points = messageData[34..36].ParseStramatelNumber();
-        message.GuestPlayer8Points = messageData[36..38].ParseStramatelNumber();
-        message.GuestPlayer9Points = messageData[38..40].ParseStramatelNumber();
-        message.GuestPlayer10Points = messageData[40..42].ParseStramatelNumber();
-        message.GuestPlayer11Points = messageData[42..44].ParseStramatelNumber();
-        message.GuestPlayer12Points = messageData[44..46].ParseStramatelNumber();
-        message.ShotClock = messageData[48..50].ParseStramatelShotClock();
-        message.ShotClockHorn = messageData[50].ParseStramatelBoolean();
-        message.ShotClockRunning = messageData[51].ParseStramatelBoolean();
-        message.ShotClockVisible = messageData[52].ParseStramatelBoolean();
+        StramatelMessage0x37 message = new()
+        {
+            Possession = StramatelMessagePartParser.ParseStramatelPossession(messageData[3]),
+            GameClock = StramatelMessagePartParser.ParseStramatelGameClock(messageData[4..8]),
+            Horn = StramatelMessagePartParser.ParseStramatelBoolean(messageData[19]),
+            GameClockRunning = StramatelMessagePartParser.ParseStramatelBoolean(messageData[20]),
+            PointsGuestPlayer1 = StramatelMessagePartParser.ParseStramatelNumber(messageData[22..24]),
+            PointsGuestPlayer2 = StramatelMessagePartParser.ParseStramatelNumber(messageData[24..26]),
+            PointsGuestPlayer3 = StramatelMessagePartParser.ParseStramatelNumber(messageData[26..28]),
+            PointsGuestPlayer4 = StramatelMessagePartParser.ParseStramatelNumber(messageData[28..30]),
+            PointsGuestPlayer5 = StramatelMessagePartParser.ParseStramatelNumber(messageData[30..32]),
+            PointsGuestPlayer6 = StramatelMessagePartParser.ParseStramatelNumber(messageData[32..34]),
+            PointsGuestPlayer7 = StramatelMessagePartParser.ParseStramatelNumber(messageData[34..36]),
+            PointsGuestPlayer8 = StramatelMessagePartParser.ParseStramatelNumber(messageData[36..38]),
+            PointsGuestPlayer9 = StramatelMessagePartParser.ParseStramatelNumber(messageData[38..40]),
+            PointsGuestPlayer10 = StramatelMessagePartParser.ParseStramatelNumber(messageData[40..42]),
+            PointsGuestPlayer11 = StramatelMessagePartParser.ParseStramatelNumber(messageData[42..44]),
+            PointsGuestPlayer12 = StramatelMessagePartParser.ParseStramatelNumber(messageData[44..46]),
+            ShotClock = StramatelMessagePartParser.ParseStramatelShotClock(messageData[48..50]),
+            ShotClockHorn = StramatelMessagePartParser.ParseStramatelBoolean(messageData[50]),
+            ShotClockRunning = StramatelMessagePartParser.ParseStramatelBoolean(messageData[51]),
+            ShotClockVisible = StramatelMessagePartParser.ParseStramatelBoolean(messageData[52])
+        };
 
         return message;
     }
-}
 
-internal static class StramatelProtocolExtensions
-{
-    public static Possession? ParseStramatelPossession(this byte value)
+    public void ApplyTo(IGame game)
     {
-        return value switch
-        {
-            0x31 => Possession.Home,
-            0x32 => Possession.Guest,
-            _ => null
-        };
-    }
-
-    public static TimeSpan? ParseStramatelGameClock(this byte[] values)
-    {
-        // Sanity check - time bytes should either be 0x20 (Space), 0x3A (:) or 0x30 (0) to 0x39 (8)
-        if (!values.All(value => value is 0x20 or 0x3A or >= 0x30 and <= 0x39))
-            return null;
-
-        string timeText = Encoding.ASCII.GetString(values);
-
-        // Everything after a ':' must be zeroed
-        if (timeText.IndexOf(':') >= 0)
-            timeText = timeText.Substring(0, timeText.IndexOf(':') + 1).PadRight(4, '0');
-
-        // If the last char is a space (0x20 | " "), shift the text by 2 digits because of sub-minute display
-        if (timeText[^1] != ' ')
-            timeText += "  ";
-
-        // If a character is a ':' this means first two digits are *10 minutes
-        timeText = timeText.Replace(":", "00");
-
-        // Pad to 7 digits (3x minutes, 2x seconds, 2x milliseconds)
-        timeText = timeText.PadLeft(7, ' ');
-
-        // Spaces are zeros
-        timeText = timeText.Replace(' ', '0');
-
-        int minutes = int.Parse(timeText.Substring(0, 3));
-        int seconds = int.Parse(timeText.Substring(3, 2));
-        int milliseconds = int.Parse(timeText.Substring(5, 2)) * 10;
-        return new TimeSpan(0, 0, minutes, seconds, milliseconds);
-    }
-
-    public static TimeSpan? ParseStramatelShotClock(this byte[] values)
-    {
-        // TODO
-        return null;
-    }
-
-    public static bool? ParseStramatelBoolean(this byte value)
-    {
-        return value == 0x31;
-    }
-
-    public static int? ParseStramatelNumber(this byte[] values)
-    {
-        // Sanity check - numbers should be 0x20 (Space) or 0x30 (0) to 0x39 (8)
-        if (!values.All(value => value is 0x20 or >= 0x30 and <= 0x39))
-            return null;
-
-        string numberText = Encoding.ASCII.GetString(values);
-        return int.TryParse(numberText, out int number) ? number : null;
+        game.Possession.SetPossession(Possession);
+        NullableHelper.SetValueIfNotNull(GameClock, game.GameClock.SetGameClock);
+        NullableHelper.SetValueIfNotNull(GameClockRunning, game.GameClock.SetGameClockRunning);
+        NullableHelper.SetValueIfNotNull(Horn, game.Horn.SetHorn);
+        NullableHelper.SetValueIfNotNull(PointsGuestPlayer1, x => NullableHelper.SetValueIfNotNull(game.Guest.GetPlayer(0), y => y.SetPoints(x)));
+        NullableHelper.SetValueIfNotNull(PointsGuestPlayer2, x => NullableHelper.SetValueIfNotNull(game.Guest.GetPlayer(1), y => y.SetPoints(x)));
+        NullableHelper.SetValueIfNotNull(PointsGuestPlayer3, x => NullableHelper.SetValueIfNotNull(game.Guest.GetPlayer(2), y => y.SetPoints(x)));
+        NullableHelper.SetValueIfNotNull(PointsGuestPlayer4, x => NullableHelper.SetValueIfNotNull(game.Guest.GetPlayer(3), y => y.SetPoints(x)));
+        NullableHelper.SetValueIfNotNull(PointsGuestPlayer5, x => NullableHelper.SetValueIfNotNull(game.Guest.GetPlayer(4), y => y.SetPoints(x)));
+        NullableHelper.SetValueIfNotNull(PointsGuestPlayer6, x => NullableHelper.SetValueIfNotNull(game.Guest.GetPlayer(5), y => y.SetPoints(x)));
+        NullableHelper.SetValueIfNotNull(PointsGuestPlayer7, x => NullableHelper.SetValueIfNotNull(game.Guest.GetPlayer(6), y => y.SetPoints(x)));
+        NullableHelper.SetValueIfNotNull(PointsGuestPlayer8, x => NullableHelper.SetValueIfNotNull(game.Guest.GetPlayer(7), y => y.SetPoints(x)));
+        NullableHelper.SetValueIfNotNull(PointsGuestPlayer9, x => NullableHelper.SetValueIfNotNull(game.Guest.GetPlayer(8), y => y.SetPoints(x)));
+        NullableHelper.SetValueIfNotNull(PointsGuestPlayer10, x => NullableHelper.SetValueIfNotNull(game.Guest.GetPlayer(9), y => y.SetPoints(x)));
+        NullableHelper.SetValueIfNotNull(PointsGuestPlayer11, x => NullableHelper.SetValueIfNotNull(game.Guest.GetPlayer(10), y => y.SetPoints(x)));
+        NullableHelper.SetValueIfNotNull(PointsGuestPlayer12, x => NullableHelper.SetValueIfNotNull(game.Guest.GetPlayer(11), y => y.SetPoints(x)));
+        NullableHelper.SetValueIfNotNull(ShotClock, game.ShotClock.SetShotClock);
+        NullableHelper.SetValueIfNotNull(ShotClockHorn, game.ShotClock.SetShotClockHorn);
+        NullableHelper.SetValueIfNotNull(ShotClockRunning, game.ShotClock.SetShotClockRunning);
+        NullableHelper.SetValueIfNotNull(ShotClockVisible, game.ShotClock.SetShotClockVisible);
     }
 }

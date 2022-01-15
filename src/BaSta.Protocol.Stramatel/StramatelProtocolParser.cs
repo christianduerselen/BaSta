@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using BaSta.Model;
 
 namespace BaSta.Protocol.Stramatel
 {
@@ -66,16 +67,16 @@ namespace BaSta.Protocol.Stramatel
         }
 
         public int MessagesAvailable => _parsedMessages.Count;
-
-        public IStramatelMessage? Dequeue()
+        
+        public bool TryDequeue(out IStramatelMessage message)
         {
-            return _parsedMessages.TryDequeue(out var message) ? message : null;
+            return _parsedMessages.TryDequeue(out message);
         }
     }
 
     public interface IStramatelMessage
     {
-        //void ApplyTo(IStramatelGame game);
+        void ApplyTo(IGame game);
     }
 
     public interface IStramatelGame

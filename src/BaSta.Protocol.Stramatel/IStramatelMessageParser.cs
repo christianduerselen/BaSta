@@ -6,5 +6,5 @@ public interface IStramatelMessageParser
 
     int MessagesAvailable { get; }
 
-    IStramatelMessage? Dequeue();
+    bool TryDequeue(out IStramatelMessage message);
 }

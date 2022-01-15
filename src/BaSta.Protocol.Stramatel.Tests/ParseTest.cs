@@ -1,3 +1,4 @@
+using BaSta.Model;
 using BaSta.Protocol.Stramatel.Tests.Resources;
 using BaSta.Tests.Resources;
 using Xunit;
@@ -14,6 +15,22 @@ public class StramatelProtocolMessageParserTests
         StramatelProtocolMessageParser parser = new();
         parser.Parse(traceDump);
 
-        Assert.Equal(134, parser.MessagesAvailable);
+        Assert.Equal(6034, parser.MessagesAvailable);
+    }
+
+    [Fact]
+    public void StramatelProtocolMessageParser_FileApplyTest()
+    {
+        byte[] traceDump = ResourceHelper.ExtractFile(EmbeddedResources.TraceDump);
+
+        StramatelProtocolMessageParser parser = new();
+        parser.Parse(traceDump);
+
+        Game game = new();
+
+        while (parser.TryDequeue(out IStramatelMessage message))
+        {
+            message.ApplyTo(game);
+        }
     }
 }

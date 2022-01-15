@@ -1,27 +1,25 @@
-﻿using System;
+﻿namespace BaSta.Model;
 
-namespace BaSta.Model;
-
-public interface Game
+public class Game : IGame
 {
-    public Possession? Possession { get; }
+    public Game()
+    {
+        GameClock = new GameClock();
+        Horn = new Horn();
+        Period = new Period();
+        ShotClock = new ShotClock();
+        Possession = new Possession();
+        Home = new Team();
+        Guest = new Team();
+        TimeoutClock = new TimeoutClock();
+    }
 
-    public TimeSpan? GameTime { get; }
-
-    public TimeSpan? TimeSpan { get; }
-}
-
-public enum Possession
-{
-    Home,
-    Guest
-}
-
-public enum Period
-{
-    Q1,
-    Q2,
-    Q3,
-    Q4,
-    E
+    public IGameClock GameClock { get; }
+    public IHorn Horn { get; }
+    public IPeriod Period { get; }
+    public IShotClock ShotClock { get; }
+    public IPossession Possession { get; }
+    public ITeam Home { get; }
+    public ITeam Guest { get; }
+    public ITimeoutClock TimeoutClock { get; }
 }
