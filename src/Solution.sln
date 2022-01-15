@@ -27,6 +27,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BaSta.TimeSync", "BaSta.Tim
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BaSta.Protocol.Nautronic", "BaSta.Protocol.Nautronic\BaSta.Protocol.Nautronic.csproj", "{DFF3C724-F281-4581-B339-43D3C1D2D716}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BaSta.Protocol.Stramatel", "BaSta.Protocol.Stramatel\BaSta.Protocol.Stramatel.csproj", "{F1D10688-8C9E-4AB5-B45C-5B95B649DF12}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BaSta.Protocol.Stramatel.Tests", "BaSta.Protocol.Stramatel.Tests\BaSta.Protocol.Stramatel.Tests.csproj", "{90E23534-C4CA-4A4E-A851-7BF882CC4BFC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BaSta.Model", "BaSta.Model\BaSta.Model.csproj", "{5262D090-B069-4738-B484-2B913D0A846F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +87,18 @@ Global
 		{DFF3C724-F281-4581-B339-43D3C1D2D716}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DFF3C724-F281-4581-B339-43D3C1D2D716}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DFF3C724-F281-4581-B339-43D3C1D2D716}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1D10688-8C9E-4AB5-B45C-5B95B649DF12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1D10688-8C9E-4AB5-B45C-5B95B649DF12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1D10688-8C9E-4AB5-B45C-5B95B649DF12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1D10688-8C9E-4AB5-B45C-5B95B649DF12}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90E23534-C4CA-4A4E-A851-7BF882CC4BFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90E23534-C4CA-4A4E-A851-7BF882CC4BFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90E23534-C4CA-4A4E-A851-7BF882CC4BFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90E23534-C4CA-4A4E-A851-7BF882CC4BFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5262D090-B069-4738-B484-2B913D0A846F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5262D090-B069-4738-B484-2B913D0A846F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5262D090-B069-4738-B484-2B913D0A846F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5262D090-B069-4738-B484-2B913D0A846F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

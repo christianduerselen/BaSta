@@ -10,7 +10,7 @@ public class DbaseParserTest
     [Fact]
     public void DbaseParser_ConstructorTest()
     {
-        byte[] actionFileData = ResourceHelper.TryExtractResource(EmbeddedResources.Example2ActionsDatabase);
+        byte[] actionFileData = ResourceHelper.ExtractFile(EmbeddedResources.Example2ActionsDatabase);
         DbaseParser parser = new DbaseParser(new MemoryStream(actionFileData));
     }
 }
