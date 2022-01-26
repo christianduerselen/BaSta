@@ -106,9 +106,9 @@ public class WigeSerialInput : TimeSyncTaskBase, ITimeSyncInputTask
 
                 _lastUsedTime = new TimeSpan(0, 0, minutes, seconds, milliseconds);
 
-                Debug.Write($"Received time: {_lastUsedTime}");
+                //Debug.Write($"Received time: {_lastUsedTime}");
 
-                StateChanged?.Invoke(this, null);
+                StateChanged?.Invoke(this, new DataEventArgs<TimeSpan>(_lastUsedTime));
             } while (true);
         }
     }
@@ -123,5 +123,5 @@ public class WigeSerialInput : TimeSyncTaskBase, ITimeSyncInputTask
         return _lastUsedTime;
     }
 
-    public event EventHandler StateChanged;
+    public event EventHandler<DataEventArgs<TimeSpan>> StateChanged;
 }

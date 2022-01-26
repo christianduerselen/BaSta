@@ -6,5 +6,5 @@ public interface ITimeSyncInputTask : ITimeSyncTask
 {
     TimeSpan Pull();
 
-    event EventHandler StateChanged;
+    event EventHandler<DataEventArgs<TimeSpan>> StateChanged;
 }

@@ -118,7 +118,7 @@ public class BodetSerialInput : TimeSyncTaskBase, ITimeSyncInputTask
                 }
 
                 Debug.WriteLine($"New time: {_lastUsedTime}");
-                StateChanged?.Invoke(this, null);
+                StateChanged?.Invoke(this, new DataEventArgs<TimeSpan>(_lastUsedTime));
             } while (true);
         }
     }
@@ -133,7 +133,7 @@ public class BodetSerialInput : TimeSyncTaskBase, ITimeSyncInputTask
         return _lastUsedTime;
     }
 
-    public event EventHandler StateChanged;
+    public event EventHandler<DataEventArgs<TimeSpan>> StateChanged;
 
     private byte CalculateLrc(byte[] messageData)
     {

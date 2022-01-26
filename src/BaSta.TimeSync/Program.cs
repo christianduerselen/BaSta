@@ -38,6 +38,8 @@ public static class Program
             config.AddRule(LogLevel.Debug, LogLevel.Fatal, fileTarget);
             ConsoleTarget consoleTarget = new ConsoleTarget();
             config.AddRule(LogLevel.Info, LogLevel.Fatal, consoleTarget);
+            DebuggerTarget debugTarget = new DebuggerTarget();
+            config.AddRule(LogLevel.Info, LogLevel.Fatal, debugTarget);
             LogManager.Configuration = config;
 
             // Log all unhandled exceptions

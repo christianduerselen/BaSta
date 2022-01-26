@@ -52,7 +52,7 @@ namespace BaSta.Link.SwissTiming
                 string[] numberStrings = Regex.Matches(receivedString, "[0-9]{2}").Select(x => x.Value).ToArray();
                 _lastUsedTime = new TimeSpan(int.Parse(numberStrings[0]), int.Parse(numberStrings[1]), int.Parse(numberStrings[2]));
 
-                StateChanged?.Invoke(this, null);
+                StateChanged?.Invoke(this, new DataEventArgs<TimeSpan>(_lastUsedTime));
             }
         }
 
@@ -69,6 +69,6 @@ namespace BaSta.Link.SwissTiming
             return _lastUsedTime;
         }
 
-        public event EventHandler StateChanged;
+        public event EventHandler<DataEventArgs<TimeSpan>> StateChanged;
     }
 }

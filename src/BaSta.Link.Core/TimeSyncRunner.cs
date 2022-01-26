@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -17,6 +18,7 @@ public class TimeSyncRunner : ITimeSyncTask
     private readonly ITimeSyncOutputTask[] _outputTasks;
     private CancellationTokenSource _cancellationTokenSource;
     private Task _acceptTask;
+    private ConcurrentQueue<TimeSpan> _inputTimeQueue = new();
 
     public TimeSyncRunner(ITimeSyncInputTask inputTask, IEnumerable<ITimeSyncOutputTask> outputTasks)
     {
@@ -43,9 +45,10 @@ public class TimeSyncRunner : ITimeSyncTask
 
     private readonly AutoResetEvent _stateChanged = new AutoResetEvent(false);
 
-    private void OnInputStateChanged(object? sender, EventArgs e)
+    private void OnInputStateChanged(object sender, DataEventArgs<TimeSpan> dataEventArgs)
     {
-        _stateChanged.Set();
+        //_stateChanged.Set();
+        _inputTimeQueue.Enqueue(dataEventArgs.Data);
     }
 
     private void SyncTask()
@@ -54,11 +57,16 @@ public class TimeSyncRunner : ITimeSyncTask
         {
             try
             {
-                if (!_stateChanged.WaitOne(1))
+                //if (!_stateChanged.WaitOne(1))
+                //    continue;
+                if (!_inputTimeQueue.TryDequeue(out TimeSpan time))
+                {
+                    Thread.Sleep(1);
                     continue;
+                }
 
                 // Pull the current time value from the input
-                var time = _inputTask.Pull();
+                //var time = _inputTask.Pull();
 
                 Logger.Info($"Synchronizing time: {time:hh\\:mm\\:ss\\.fff}");
 
