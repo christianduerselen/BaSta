@@ -1,0 +1,14 @@
+html, body {
+    font-family: 'Barlow';
+}
+
+/*
+    Overwriting the default bs-gutter-x of 1.5rem to fix horizontal scrolling
+*/
+.row {
+    --bs-gutter-x: 10;
+}
+
+.btn-group-md > .btn {
+    padding: 0;
+}

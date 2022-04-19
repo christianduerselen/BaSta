@@ -4,8 +4,18 @@ namespace BaSta.Model;
 
 public interface ITeam
 {
+    public byte[]? Logo { get; }
+    void SetLogo(byte[]? logo);
+
     public string Name { get; }
-    
+    void SetName(string name);
+
+    public string NameShort { get; }
+    void SetNameShort(string nameShort);
+
+    public string NameInitials { get; }
+    void SetNameInitials(string nameInitials);
+
     public int Points { get; }
     void SetPoints(int points);
     
@@ -17,4 +27,6 @@ public interface ITeam
 
     public IReadOnlyList<IPlayer> Players { get; }
     IPlayer? GetPlayer(int index);
+    void AddPlayer(IPlayer player);
+    void RemovePlayer(IPlayer player);
 }

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace BaSta.Model;
+﻿namespace BaSta.Model;
 
 public interface IPlayer
 {
@@ -11,10 +9,8 @@ public interface IPlayer
     void SetNumber(int number);
 
     public int Points { get; }
-    
     void SetPoints(int points);
     
     public int Fouls { get; }
-    
     void SetFouls(int fouls);
 }

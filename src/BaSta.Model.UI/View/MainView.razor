@@ -1,0 +1,220 @@
+﻿@inherits ViewBase<MainViewModel>
+@inject MainViewModel _viewModel
+
+<Container Fluid Style="border-bottom:2px solid black">
+    <Bar Breakpoint="Breakpoint.Desktop">
+        <BarBrand>
+            <Heading Size="HeadingSize.Is2">BaSta Game</Heading>
+        </BarBrand>
+        <BarMenu>
+            <BarEnd>
+                <BarItem>
+                    <Button Color="Color.Danger">Reset</Button>
+                </BarItem>
+            </BarEnd>
+        </BarMenu>
+    </Bar>
+</Container>
+
+<div class="d-flex justify-content-evenly" style="padding-top: 1rem">
+
+    <div>
+        <div class="vstack">
+            <Heading Size="HeadingSize.Is3" Style="text-align:center">Period</Heading>
+            <div class="hstack gap-2">
+                <Buttons Size="Size.ExtraLarge">
+                    <Button Disabled Color="Color.Dark">Break</Button>
+                    <Button Disabled Color="Color.Success" Style="width: 75px">1</Button>
+                    <Button Disabled Outline Color="Color.Dark">Game</Button>
+                </Buttons>
+                <Buttons Size="Size.Medium">
+                    <Button Outline Color="Color.Danger" Style="height: 45px; width: 50px">
+                        <Icon Name="IconName.ArrowLeft" />
+                    </Button>
+                    <Button Outline Color="Color.Danger" Style="height: 45px; width: 50px">
+                        <Icon Name="IconName.ArrowRight" />
+                    </Button>
+                </Buttons>
+            </div>
+        </div>
+    </div>
+
+    <div class="vr" />
+    
+    <div>
+        <div class="vstack">
+            <Heading Size="HeadingSize.Is3" Style="text-align:center">Game Clock</Heading>
+            <div class="hstack gap-2">
+                <Buttons Size="Size.ExtraLarge">
+                    <Button Disabled Color="@(GameClock.IsRunning ? Color.Danger : Color.Success)" Style="width: 75px">@GameClock.Clock.Minutes</Button>
+                    <Button Disabled Color="@(GameClock.IsRunning ? Color.Danger : Color.Success)" Style="width: 75px">@GameClock.Clock.Seconds</Button>
+                    <Button Disabled Color="@(GameClock.IsRunning ? Color.Danger : Color.Success)" Style="width: 75px">@(GameClock.Clock.Milliseconds / 100)</Button>
+                </Buttons>
+                <Buttons Size="Size.Medium">
+                    <Button Style="height: 45px; width:50px" Clicked="GameClockButtonClicked" Color="@(GameClock.IsRunning ? Color.Danger : Color.Success)">
+                        <Icon Name="@(GameClock.IsRunning ? IconName.Pause : IconName.Play)" />
+                    </Button>
+                    <Button Style="height: 45px; width:50px" Color="Color.Dark" Outline>
+                        <Icon Name="IconName.Edit" />
+                    </Button>
+                </Buttons>
+            </div>
+        </div>
+    </div>
+
+    <div class="vr" />
+    
+    <div>
+        <div class="vstack">
+            <Heading Size="HeadingSize.Is3" Style="text-align:center">Shot Clock</Heading>
+            <div class="hstack gap-2">
+                <Buttons Size="Size.ExtraLarge">
+                    <Button Disabled Color="@(ShotClock.IsRunning ? Color.Danger : Color.Success)" Style="width: 75px">@ShotClock.Clock.Seconds</Button>
+                    <Button Disabled Color="@(ShotClock.IsRunning ? Color.Danger : Color.Success)" Style="width: 75px">@(ShotClock.Clock.Milliseconds / 100)</Button>
+                </Buttons>
+                <Buttons Size="Size.Medium">
+                    <Button Style="height: 45px; width:50px" Clicked="GameClockButtonClicked" Color="@(ShotClock.IsRunning ? Color.Danger : Color.Success)">
+                        <Icon Name="@(ShotClock.IsRunning ? IconName.Pause : IconName.Play)" />
+                    </Button>
+                    <Button Style="height: 45px; width:50px" Clicked="Reset24ButtonClicked" Outline Color="Color.Dark">
+                        <Text TextWeight="TextWeight.Bold">24s</Text>
+                    </Button>
+                    <Button Style="height: 45px; width:50px" Clicked="Reset14ButtonClicked" Outline Color="Color.Dark">
+                        <Text TextWeight="TextWeight.Bold">14s</Text>
+                    </Button>
+                    <Button Style="height: 45px; width:50px" Clicked="ToggleShotClockVisible" Outline Color="Color.Dark">
+                        <Icon Name="@(shotClockVisible ? IconName.Eye : IconName.EyeSlash)" />
+                    </Button>
+                    <Button Style="height: 45px; width:50px" Color="Color.Dark" Outline>
+                        <Icon Name="IconName.Edit" />
+                    </Button>
+                </Buttons>
+            </div>
+        </div>
+    </div>
+    
+    <div class="vr" />
+
+    <div>
+        <div class="vstack">
+            <Heading Size="HeadingSize.Is3" Style="text-align:center">Possession</Heading>
+            <Buttons Size="Size.ExtraLarge">
+                <Button Outline Color="Color.Success" Style="height: 54px; width: 75px">
+                    <Icon Name="IconName.ArrowLeft" />
+                </Button>
+                <Button Color="Color.Success" Style="height: 54px; width: 75px">
+                    <Icon Name="IconName.ArrowRight" />
+                </Button>
+            </Buttons>
+        </div>
+    </div>
+
+</div>
+
+<hr style="margin-left: 10px; margin-right: 10px"/>
+
+
+@*<div class="d-flex justify-content-evenly">
+    <div class="hstack gap-3">
+
+    </div>
+    <div class="hstack gap-3">
+
+    </div>
+    <div class="hstack gap-3">
+
+    </div>
+    </div>*@
+
+@*<Row>
+    <Column ColumnSize="ColumnSize.Is4">
+
+    </Column>
+    <Column ColumnSize="ColumnSize.Is4">
+
+    </Column>
+    <Column ColumnSize="ColumnSize.Is4">
+
+    </Column>
+    </Row>*@
+
+@*
+    <Row>
+    <Column ColumnSize="ColumnSize.Is6">
+    <Container>
+    <Buttons>
+    <Button Size="Size.ExtraLarge" Disabled Outline Color="@(GameClock.IsRunning ? Color.Danger : Color.Success)" Style="width: 75px">@GameClock.Clock.Minutes</Button>
+    <Button Size="Size.ExtraLarge" Disabled Outline Color="@(GameClock.IsRunning ? Color.Danger : Color.Success)" Style="width: 75px">@GameClock.Clock.Seconds</Button>
+    <Button Size="Size.ExtraLarge" Disabled Outline Color="@(GameClock.IsRunning ? Color.Danger : Color.Success)" Style="width: 75px">@(GameClock.Clock.Milliseconds / 100)</Button>
+    </Buttons>
+    <Button Clicked="GameClockButtonClicked" Color="@(GameClock.IsRunning ? Color.Danger : Color.Success)" Outline>@(GameClock.IsRunning ? "Stop" : "Start")</Button>
+    </Container>
+    </Column>
+    <Column ColumnSize="ColumnSize.Is6">
+    <Container>
+    <Buttons>
+    </Buttons>
+    <Button Clicked="Reset24ButtonClicked" Color="Color.Success" Outline>Reset 24s</Button>
+    <Button Clicked="Reset14ButtonClicked" Color="Color.Success" Outline>Reset 14s</Button>
+    </Container>
+    </Column>
+    </Row>*@
+
+<Row>
+    <Column ColumnSize="ColumnSize.Is6" Style="border-right: 1px solid rgba(0, 0, 0, .25)">
+        <Container>
+            <TeamView DataContext="@DataContext.Home"></TeamView>
+        </Container>
+    </Column>
+    <Column ColumnSize="ColumnSize.Is6">
+        <Container>
+            <TeamView DataContext="@DataContext.Guest"></TeamView>
+        </Container>
+    </Column>
+</Row>
+
+@code
+{
+    DownClock GameClock;
+    DownClock ShotClock;
+    bool shotClockVisible = true;
+
+    private void ToggleShotClockVisible()
+    {
+        shotClockVisible = !shotClockVisible;
+    }
+
+    protected override void OnInitialized()
+    {
+        DataContext = _viewModel;
+
+        GameClock = new DownClock(TimeSpan.FromMinutes(10));
+        GameClock.ClockChanged += OnGameClockChanged;
+
+        ShotClock = new DownClock(TimeSpan.FromSeconds(24));
+        ShotClock.ClockChanged += OnGameClockChanged;
+    }
+
+    private void OnGameClockChanged(object? sender, ShotClockStateChangedEventArgs e)
+    {
+        InvokeAsync(StateHasChanged);
+    }
+
+    void GameClockButtonClicked()
+    {
+        GameClock.SetState(!GameClock.IsRunning);
+        ShotClock.SetState(!ShotClock.IsRunning);
+    }
+
+    private void Reset24ButtonClicked()
+    {
+        ShotClock.Set24();
+        ShotClock.SetState(GameClock.IsRunning);
+    }
+
+    private void Reset14ButtonClicked()
+    {
+        ShotClock.Set14();
+        ShotClock.SetState(GameClock.IsRunning);
+    }
+}

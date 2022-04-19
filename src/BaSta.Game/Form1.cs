@@ -1328,13 +1328,14 @@ namespace BaSta.Game
         _dummy_counter = 10;
         try
         {
-          if (Convert.ToBoolean(_act_game_form.Tag))
+          if (Convert.ToBoolean(_act_game_form?.Tag))
             return;
           _dbfunc.KeepConnectionAlive();
         }
         catch
         {
-          _act_game_form.Tag = (object) 0;
+            if (_act_game_form != null)
+              _act_game_form.Tag = (object) 0;
         }
       }
     }

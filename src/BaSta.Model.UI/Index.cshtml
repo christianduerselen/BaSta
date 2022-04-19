@@ -1,0 +1,45 @@
+﻿@page "/"
+@using BaSta.Model.UI.View
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<html>
+    <head>
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+        <link rel="manifest" href="/site.webmanifest">
+
+        <link rel="stylesheet" href="lib/bootstrap-5.1.3/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="lib/fontawesome-5.15.4/css/all.min.css" />
+        <link rel="stylesheet" href="font/css.css" />
+        <link rel="stylesheet" href="_content/Blazorise/blazorise.css" />
+        <link rel="stylesheet" href="_content/Blazorise.Bootstrap5/blazorise.bootstrap5.css" />
+        <link rel="stylesheet" href="css/site.css" />
+    </head>
+
+    <body>
+        <component type="typeof(MainView)" render-mode="ServerPrerendered" />
+
+        <script src="_framework/blazor.server.js"></script>
+
+        <script src="lib/bootstrap-5.1.3/js/bootstrap.bundle.min.js"></script>
+        <script src="_content/Blazorise/breakpoint.js" type="module"></script>
+        <script src="_content/Blazorise/button.js" type="module"></script>
+        <script src="_content/Blazorise/closable.js" type="module"></script>
+        <script src="_content/Blazorise/colorPicker.js" type="module"></script>
+        <script src="_content/Blazorise/datePicker.js" type="module"></script>
+        <script src="_content/Blazorise/fileEdit.js" type="module"></script>
+        <script src="_content/Blazorise/inputMask.js" type="module"></script>
+        <script src="_content/Blazorise/io.js" type="module"></script>
+        <script src="_content/Blazorise/memoEdit.js" type="module"></script>
+        <script src="_content/Blazorise/numericPicker.js" type="module"></script>
+        <script src="_content/Blazorise/select.js" type="module"></script>
+        <script src="_content/Blazorise/table.js" type="module"></script>
+        <script src="_content/Blazorise/textEdit.js" type="module"></script>
+        <script src="_content/Blazorise/theme.js" type="module"></script>
+        <script src="_content/Blazorise/timePicker.js" type="module"></script>
+        <script src="_content/Blazorise/tooltip.js" type="module"></script>
+        <script src="_content/Blazorise/utilities.js" type="module"></script>
+    </body>
+
+</html>

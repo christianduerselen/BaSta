@@ -1,0 +1,18 @@
+﻿@inherits ViewBase<TeamViewModel>
+
+<Table Hoverable Striped Narrow Responsive>
+    <TableHeader>
+        <TableRow>
+            <TableHeaderCell Style="width: 25px">#</TableHeaderCell>
+            <TableHeaderCell>Name</TableHeaderCell>
+            <TableHeaderCell Style="width: 175px">Points</TableHeaderCell>
+            <TableHeaderCell Style="width: 110px">Fouls</TableHeaderCell>
+        </TableRow>
+    </TableHeader>
+    <TableBody>
+        @foreach (var player in @DataContext.Players)
+        {
+            <TeamTablePlayerItemView DataContext="@player"></TeamTablePlayerItemView>
+        }
+    </TableBody>
+</Table>

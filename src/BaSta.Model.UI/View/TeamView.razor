@@ -1,0 +1,167 @@
+@using Microsoft.AspNetCore.Components.Forms
+@inherits ViewBase<TeamViewModel>
+
+<div class="d-flex justify-content-evenly">
+    <div class="hstack gap-2">
+        <div>
+            @if (@DataContext.Logo != null)
+            {
+                <Figure Size="FigureSize.Is32x32" Margin="Margin.Is0">
+                    <FigureImage Source="@GetPictureContent()" />
+                </Figure>
+            }
+        </div>
+        <div>
+            <Heading Size="HeadingSize.Is3" Style="margin-bottom: 0">@DataContext.Name @(!string.IsNullOrWhiteSpace(DataContext.NameInitials) ? "(" + DataContext.NameInitials + ")" : "")</Heading>
+        </div>
+        <div>
+            <Button Clicked="ShowModal" Style="padding: 0">
+                <Icon Name="IconName.Edit" />
+            </Button>
+        </div>
+    </div>
+</div>
+
+<div class="d-flex justify-content-evenly" style="padding-top: 1rem">
+    <div>
+        <div class="vstack">
+            <Heading Size="HeadingSize.Is5" Style="text-align:center">Points</Heading>
+            <div class="hstack gap-2">
+                <Button Size="Size.Large" Disabled Color="Color.Success" Style="width: 75px">@DataContext.Points</Button>
+                <Buttons Size="Size.Default">
+                    <Button Outline Color="Color.Danger" Style="width: 40px" Disabled>-</Button>
+                    <Button Outline Color="Color.Success" Style="width: 40px">+</Button>
+                </Buttons>
+            </div>
+        </div>
+    </div>
+    <div class="vr" />
+    <div>
+        <div class="vstack">
+            <Heading Size="HeadingSize.Is5" Style="text-align:center">Fouls</Heading>
+            <div class="hstack gap-2">
+                <Button Size="Size.Large" Disabled Color="Color.Danger" Style="width: 50px">@DataContext.Fouls</Button>
+                <Buttons Size="Size.Default">
+                    <Button Outline Color="Color.Danger" Style="width: 40px" Disabled>-</Button>
+                    <Button Outline Color="Color.Success" Style="width: 40px">+</Button>
+                </Buttons>
+            </div>
+        </div>
+    </div>
+    <div class="vr" />
+    <div>
+        <div class="vstack">
+            <Heading Size="HeadingSize.Is5" Style="text-align:center">Timeouts</Heading>
+            <div class="hstack gap-2">
+                <Buttons Size="Size.Large">
+                    <Button Disabled Color="Color.Dark" Style="width: 50px">@DataContext.Timeouts</Button>
+                    <Button Disabled Outline Color="Color.Danger" Style="width: 60px">-</Button>
+                </Buttons>
+                <Buttons Size="Size.Default">
+                    <Button Outline Color="Color.Danger" Style="width: 40px" Disabled>-</Button>
+                    <Button Outline Color="Color.Success" Style="width: 40px">+</Button>
+                    <Button Outline Color="Color.Dark" Style="width: 40px" Disabled>
+                        <Icon Name="IconName.Stop"/>
+                    </Button>
+                </Buttons>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="padding-top: 1rem">
+    <TeamTableView DataContext="@DataContext" />
+</div>
+
+<Modal @ref="modalRef">
+    <ModalContent Centered Size="ModalSize.Small">
+        <ModalHeader>
+            <ModalTitle>Edit team</ModalTitle>
+            <CloseButton />
+        </ModalHeader>
+        <ModalBody>
+            <Field>
+                <FieldLabel>Name</FieldLabel>
+                <TextEdit @ref="modalName" Placeholder="Enter name..." Text="@DataContext.Name" />
+            </Field>
+            <Field>
+                <FieldLabel>Name (Short)</FieldLabel>
+                <TextEdit @ref="modalNameShort" Placeholder="Enter short name..." Text="@DataContext.NameShort" />
+            </Field>
+            <Field>
+                <FieldLabel>Name (Initials)</FieldLabel>
+                <TextEdit @ref="modalNameInitials" Placeholder="Enter initials..." Text="@DataContext.NameInitials" />
+            </Field>
+            <Field>
+                <FieldLabel>Logo</FieldLabel>
+                <Card>
+                    <CardBody>
+                        <FileEdit Changed="@OnChanged"/>
+                    </CardBody>
+                    <CardImage Source="@GetPictureContent()" />
+                </Card>
+            </Field>
+        </ModalBody>
+        <ModalFooter>
+            <Button Color="Color.Secondary" Clicked="@HideModal">Cancel</Button>
+            <Button Color="Color.Primary" Clicked="@FinishModal">Save Changes</Button>
+        </ModalFooter>
+    </ModalContent>
+</Modal>
+
+@code
+{
+    private Modal modalRef;
+    private TextEdit modalName;
+    private TextEdit modalNameShort;
+    private TextEdit modalNameInitials;
+
+    private string GetPictureContent()
+    {
+        if (DataContext.Logo == null)
+            return string.Empty;
+
+        return "data:image;base64," + Convert.ToBase64String(@DataContext.Logo);
+    }
+
+    private void LoadFiles(InputFileChangeEventArgs e)
+    {
+        var memoryStream = new MemoryStream();
+        e.File.OpenReadStream().CopyToAsync(memoryStream);
+        DataContext.Logo = memoryStream.ToArray();
+    }
+
+    async Task OnChanged(FileChangedEventArgs e)
+    {
+        var file = e.Files.FirstOrDefault();
+
+        if (file == null)
+            return;
+
+        using (var stream = new MemoryStream())
+        {
+            await file.WriteToStreamAsync(stream);
+            DataContext.Logo = stream.ToArray();
+        }
+    }
+
+    private Task ShowModal()
+    {
+        return modalRef.Show();
+    }
+
+    private Task HideModal()
+    {
+        return modalRef.Hide();
+    }
+
+    private void FinishModal()
+    {
+        DataContext.Name = modalName.Text;
+        DataContext.NameShort = modalNameShort.Text;
+        DataContext.NameInitials = modalNameInitials.Text;
+        //DataContext.Logo =
+        //throw new NotImplementedException();
+        modalRef.Close(CloseReason.None);
+    }
+}

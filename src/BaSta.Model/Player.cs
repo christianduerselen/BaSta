@@ -1,11 +1,21 @@
 ﻿namespace BaSta.Model;
 
-internal class Player : IPlayer
+public class Player : IPlayer
 {
     private string _name;
     private int _number;
     private int _points;
     private int _fouls;
+
+    public Player()
+    {
+    }
+
+    public Player(string name, int number)
+    {
+        _name = name;
+        _number = number;
+    }
 
     string IPlayer.Name => _name;
 

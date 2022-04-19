@@ -2,22 +2,30 @@
 
 namespace BaSta.Model;
 
-internal class GameClock : IGameClock
+internal class GameClock : ModelBase, IGameClock
 {
     private TimeSpan _clock;
     private bool _gameClockRunning;
 
-    TimeSpan IGameClock.Clock => _clock;
-
-    void IGameClock.SetGameClock(TimeSpan clock)
+    public TimeSpan Clock
     {
-        _clock = clock;
+        get => _clock;
+        private set => SetField(ref _clock, value);
     }
 
-    bool IGameClock.GameClockRunning => _gameClockRunning;
+    public void SetGameClock(TimeSpan clock)
+    {
+        Clock = clock;
+    }
+
+    public bool GameClockRunning
+    {
+        get => _gameClockRunning;
+        private set => SetField(ref _gameClockRunning, value);
+    }
 
     void IGameClock.SetGameClockRunning(bool running)
     {
-        _gameClockRunning = running;
+        GameClockRunning = running;
     }
 }

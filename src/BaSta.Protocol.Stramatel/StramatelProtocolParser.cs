@@ -49,8 +49,7 @@ namespace BaSta.Protocol.Stramatel
                         continue;
 
                     // The second byte contains the message type which must be supported
-                    byte messageType = messageData[1];
-                    if (!_parseDictionary.TryGetValue(messageType, out var messageParser))
+                    if (!_parseDictionary.TryGetValue(messageData[1], out var messageParser))
                         continue;
 
                     // Try to create message instance from type parser

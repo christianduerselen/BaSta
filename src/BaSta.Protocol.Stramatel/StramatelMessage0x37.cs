@@ -9,7 +9,7 @@ public class StramatelMessage0x37 : IStramatelMessage
     {
     }
 
-    public PossessionState Possession { get; private set; }
+    public PossessionState? Possession { get; private set; }
     public TimeSpan? GameClock { get; private set; }
     public bool? Horn { get; private set; }
     public bool? GameClockRunning { get; private set; }
@@ -61,7 +61,7 @@ public class StramatelMessage0x37 : IStramatelMessage
 
     public void ApplyTo(IGame game)
     {
-        game.Possession.SetPossession(Possession);
+        game.Possession.SetPossession(Possession ?? PossessionState.None);
         NullableHelper.SetValueIfNotNull(GameClock, game.GameClock.SetGameClock);
         NullableHelper.SetValueIfNotNull(GameClockRunning, game.GameClock.SetGameClockRunning);
         NullableHelper.SetValueIfNotNull(Horn, game.Horn.SetHorn);

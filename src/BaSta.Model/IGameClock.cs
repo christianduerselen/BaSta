@@ -1,8 +1,9 @@
 ﻿using System;
+using System.ComponentModel;
 
 namespace BaSta.Model;
 
-public interface IGameClock
+public interface IGameClock : INotifyPropertyChanged
 {
     TimeSpan Clock { get; }
 

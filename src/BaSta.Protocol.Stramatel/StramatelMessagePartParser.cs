@@ -7,13 +7,14 @@ namespace BaSta.Protocol.Stramatel;
 
 internal static class StramatelMessagePartParser
 {
-    public static PossessionState ParseStramatelPossession(byte value)
+    public static PossessionState? ParseStramatelPossession(byte value)
     {
         return value switch
         {
             0x31 => PossessionState.Home,
             0x32 => PossessionState.Guest,
-            _ => PossessionState.None
+            0x20 => PossessionState.None,
+            _ => null
         };
     }
 

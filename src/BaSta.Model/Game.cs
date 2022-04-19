@@ -1,5 +1,10 @@
 ﻿namespace BaSta.Model;
 
+public interface IGameControl
+{
+
+}
+
 public class Game : IGame
 {
     public Game()
