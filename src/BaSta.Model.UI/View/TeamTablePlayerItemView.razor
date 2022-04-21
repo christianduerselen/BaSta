@@ -13,17 +13,17 @@
     </TableRowCell>
     <TableRowCell>
         <Buttons Size="Size.ExtraSmall">
-            <Button Color="Color.Danger" Command="@DataContext.Remove1PointCommand">-1</Button>
-            <Button Color="Color.Success" Command="@DataContext.Add1PointCommand">+1</Button>
-            <Button Color="Color.Success" Command="@DataContext.Add2PointCommand">+2</Button>
-            <Button Color="Color.Success" Command="@DataContext.Add3PointCommand">+3</Button>
+            <Blazorise.Button Color="Color.Danger" Command="@DataContext.Remove1PointCommand">-1</Blazorise.Button>
+            <Blazorise.Button Color="Color.Success" Command="@DataContext.Add1PointCommand">+1</Blazorise.Button>
+            <Blazorise.Button Color="Color.Success" Command="@DataContext.Add2PointCommand">+2</Blazorise.Button>
+            <Blazorise.Button Color="Color.Success" Command="@DataContext.Add3PointCommand">+3</Blazorise.Button>
         </Buttons>
         <Text Style="padding-left: 10px">@DataContext.Points</Text>
     </TableRowCell>
     <TableRowCell>
         <Buttons Size="Size.ExtraSmall">
-            <Button Color="Color.Danger" Command="@DataContext.Remove1FoulCommand">-1</Button>
-            <Button Color="Color.Success" Command="@DataContext.Add1FoulCommand">+1</Button>
+            <Blazorise.Button Color="Color.Danger" Command="@DataContext.Remove1FoulCommand">-1</Blazorise.Button>
+            <Blazorise.Button Color="Color.Success" Command="@DataContext.Add1FoulCommand">+1</Blazorise.Button>
         </Buttons>
         <Text
             TextColor="@(DataContext.IsDisqualified ? TextColor.Danger : TextColor.Default)"
