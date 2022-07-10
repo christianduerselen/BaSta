@@ -11,14 +11,16 @@ public class TeamViewModel : ViewModelBase
     public TeamViewModel(ITeam team)
     {
         _team = team;
-        Players = new ObservableCollection<PlayerViewModel>(team.Players.Select(x => new PlayerViewModel(x,_team)));
+        Players = new ObservableCollection<PlayerViewModel>(team.Players.Select(x => new PlayerViewModel(x,this)));
 
-        Remove1PointCommand = new RelayCommand(() => Points -= 1, () => Points > 0);
-        Add1PointCommand = new RelayCommand(() => Points += 1);
-        AddTimeOutCommand = new RelayCommand(() => Points += 1);
-        RemoveTimeOutCommand = new RelayCommand(() => Points += 1);
+        PointCommand = new RelayCommand(() => Points = (Players.Sum(x => x.Points)));
 
-        //
+        AddTimeOutCommand = new RelayCommand(() => Timeouts += 1);
+        RemoveTimeOutCommand = new RelayCommand(() => Timeouts -= 1);
+
+        FoulCommand = new RelayCommand(() => Fouls = (Players.Sum(x => x.Fouls)));
+
+
     }
 
     public string Name
@@ -114,11 +116,12 @@ public class TeamViewModel : ViewModelBase
 
     public ObservableCollection<PlayerViewModel> Players { get; }
 
-    public ICommand Remove1PointCommand { get; }
-
-    public ICommand Add1PointCommand { get; }
+    public ICommand PointCommand { get; }
 
     public ICommand AddTimeOutCommand { get; }
 
     public ICommand RemoveTimeOutCommand { get; }
+
+    public ICommand FoulCommand { get; }
+
 }

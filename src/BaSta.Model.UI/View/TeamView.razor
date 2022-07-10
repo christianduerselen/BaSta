@@ -28,10 +28,6 @@
             <Heading Size="HeadingSize.Is5" Style="text-align:center">Points</Heading>
             <div class="hstack gap-2">
                 <Blazorise.Button Size="Size.Large" Disabled Color="Color.Success" Style="width: 75px">@DataContext.Points</Blazorise.Button>
-                <Buttons Size="Size.Default">
-                    <Blazorise.Button Outline Color="Color.Danger" Style="width: 40px" Command="@DataContext.Remove1PointCommand">-</Blazorise.Button>
-                    <Blazorise.Button Outline Color="Color.Success" Style="width: 40px" Command="@DataContext.Add1PointCommand">+</Blazorise.Button>
-                </Buttons>
             </div>
         </div>
     </div>

@@ -6,9 +6,9 @@ namespace BaSta.Model.UI.ViewModel;
 public class PlayerViewModel : ViewModelBase
 {
     private readonly IPlayer _player;
-    private ITeam _team;
+    private TeamViewModel _team;
 
-    public PlayerViewModel(IPlayer player, ITeam team)
+    public PlayerViewModel(IPlayer player, TeamViewModel team)
     {
         _player = player;
         _team = team;
@@ -58,7 +58,7 @@ public class PlayerViewModel : ViewModelBase
                 return;
 
             _player.SetPoints(value);
-            _team.UpdateTeamPoints();
+            _team.PointCommand.Execute(value);
             OnPropertyChanged();
         }
     }
@@ -72,9 +72,11 @@ public class PlayerViewModel : ViewModelBase
                 return;
 
             _player.SetFouls(value);
-            _team.UpdateTeamFouls();
+            _team.FoulCommand.Execute(value);
+            
             OnPropertyChanged();
             OnPropertyChanged(nameof(IsDisqualified));
+   
         }
     }
 
