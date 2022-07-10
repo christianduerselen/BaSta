@@ -15,7 +15,8 @@ public class TeamViewModel : ViewModelBase
 
         Remove1PointCommand = new RelayCommand(() => Points -= 1, () => Points > 0);
         Add1PointCommand = new RelayCommand(() => Points += 1);
-
+        AddTimeOutCommand = new RelayCommand(() => Points += 1);
+        RemoveTimeOutCommand = new RelayCommand(() => Points += 1);
 
         //
     }
@@ -116,4 +117,8 @@ public class TeamViewModel : ViewModelBase
     public ICommand Remove1PointCommand { get; }
 
     public ICommand Add1PointCommand { get; }
+
+    public ICommand AddTimeOutCommand { get; }
+
+    public ICommand RemoveTimeOutCommand { get; }
 }

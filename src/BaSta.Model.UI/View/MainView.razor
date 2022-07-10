@@ -24,14 +24,14 @@
             <div class="hstack gap-2">
                 <Buttons Size="Size.ExtraLarge">
                     <Blazorise.Button Disabled Color="Color.Dark">Break </Blazorise.Button>
-                    <Blazorise.Button Disabled Color="Color.Success" Style="width: 75px">1 </Blazorise.Button>
+                    <Blazorise.Button Disabled Color="Color.Success" Style="width: 75px">@GameStats.Period.Period</Blazorise.Button>
                     <Blazorise.Button Disabled Outline Color="Color.Dark">Game </Blazorise.Button>
                 </Buttons>
                 <Buttons Size="Size.Medium">
-                    <Blazorise.Button Outline Color="Color.Danger" Style="height: 45px; width: 50px">
+                    <Blazorise.Button Outline Color="@(GameStats.Possession.Possession.Equals(1) ? Color.Danger : Color.Default)" Clicked="ChangePossesionArrowHome" Style="height: 45px; width: 50px">
                         <Icon Name="IconName.ArrowLeft" />
                      </Blazorise.Button>
-                    <Blazorise.Button Outline Color="Color.Danger" Style="height: 45px; width: 50px">
+                    <Blazorise.Button Outline Color="@(GameStats.Possession.Possession.Equals(2) ? Color.Danger : Color.Default)" Clicked="ChangePossesionArrowGuest" Style="height: 45px; width: 50px">
                         <Icon Name="IconName.ArrowRight" />
                     </Blazorise.Button>
                 </Buttons>
@@ -177,6 +177,7 @@
 {
     DownClock GameClock;
     DownClock ShotClock;
+    Game GameStats;
     bool shotClockVisible = true;
 
     private void ToggleShotClockVisible()
@@ -194,6 +195,10 @@
 
         ShotClock = new DownClock(TimeSpan.FromSeconds(24));
         ShotClock.ClockChanged += OnGameClockChanged;
+
+        GameStats = new Game();
+
+        GameStats.Period.SetPeriod(1);
     }
 
     private void OnGameClockChanged(object? sender, ShotClockStateChangedEventArgs e)
@@ -218,4 +223,9 @@
         ShotClock.Set14();
         ShotClock.SetState(GameClock.IsRunning);
     }
+
+    private void ChangePossesionArrowHome() => GameStats.Possession.SetPossession(PossessionState.Home);
+
+    private void ChangePossesionArrowGuest() => GameStats.Possession.SetPossession(PossessionState.Guest);
+
 }
