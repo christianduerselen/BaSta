@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace BaSta.Model;
@@ -84,5 +85,23 @@ public class Team : ITeam
     public void RemovePlayer(IPlayer player)
     {
         _players.Remove(player);
+    }
+
+    void ITeam.UpdateTeamPoints()
+    {
+        _points = _players.Sum(x => x.Points);
+    }
+
+    void ITeam.UpdateTeamFouls()
+    {
+            
+        if(_players.Sum(x => x.Fouls) > 5)
+        {
+            _fouls = 5;
+        }
+        else
+        {
+            _fouls = _players.Sum(x => x.Fouls);
+        }
     }
 }
