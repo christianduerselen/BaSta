@@ -9,7 +9,7 @@
         <BarMenu>
             <BarEnd>
                 <BarItem>
-                    <Blazorise.Button Color="Color.Danger">Reset </Blazorise.Button>
+                    <Blazorise.Button Disabled Color="Color.Danger">Reset </Blazorise.Button>
                 </BarItem>
             </BarEnd>
         </BarMenu>
@@ -246,8 +246,10 @@
 
         //Initial setup of the game context
         GameStats = new Game();
-        GameStats.Period.SetPeriod(1);
+        GameStats.Period.SetPeriod(0);
         GameStats.Possession.SetPossession(PossessionState.None);
+
+        GameStats.
     }
 
     private void OnGameClockChanged(object? sender, ShotClockStateChangedEventArgs e)
