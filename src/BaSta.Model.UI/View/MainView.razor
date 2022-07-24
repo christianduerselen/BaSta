@@ -46,7 +46,7 @@
                     <Blazorise.Button Style="height: 45px; width:50px" Clicked="GameClockButtonClicked" Color="@(GameClock.IsRunning ? Color.Danger : Color.Success)">
                         <Icon Name="@(GameClock.IsRunning ? IconName.Pause : IconName.Play)" />
                      </Blazorise.Button>
-                    <Blazorise.Button Style="height: 45px; width:50px" Color="Color.Dark" Outline>
+                    <Blazorise.Button Style="height: 45px; width:50px" Color="Color.Dark" Outline Clicked="ShowGameClockModal">
                         <Icon Name="IconName.Edit" />
                      </Blazorise.Button>
                 </Buttons>
@@ -77,7 +77,7 @@
                     <Blazorise.Button Style="height: 45px; width:50px;" Clicked="ToggleShotClockVisible" Outline Color="Color.Dark" Background="@(shotClockVisible ? Background.Success : Background.Danger)">
                         <Icon Name="@(shotClockVisible ? IconName.Eye : IconName.EyeSlash)"/>
                      </Blazorise.Button>
-                    <Blazorise.Button Style="height: 45px; width:50px" Color="Color.Dark" Outline>
+                    <Blazorise.Button Style="height: 45px; width:50px" Color="Color.Dark" Outline Clicked="ShowShotClockModal">
                         <Icon Name="IconName.Edit" />
                      </Blazorise.Button>
                 </Buttons>
@@ -165,8 +165,65 @@
     </Column>
 </Row>
 
+<Modal @ref="modalGameClock">
+    <ModalContent Centered Size="ModalSize.Small">
+        <ModalHeader>
+            <ModalTitle>Edit Game Clock</ModalTitle>
+            <CloseButton />
+        </ModalHeader>
+        <ModalBody>
+            <Field>
+                <FieldLabel>Minute</FieldLabel>
+                <TextEdit @ref="modalGameClockMinute" Placeholder="10" MaxLength="2" Text="@GameClock.Clock.ToString(@"mm")" />
+            </Field>
+            <Field>
+                <FieldLabel>Seconds</FieldLabel>
+                <TextEdit @ref="modalGameClockSeconds" Placeholder="00" MaxLength="2" Text="@GameClock.Clock.ToString(@"ss")" />
+            </Field>
+            <Field>
+                <FieldLabel>Milliseconds</FieldLabel>
+                <TextEdit @ref="modalGameClockMilliseconds" Placeholder="0" MaxLength="1" Text="@(Convert.ToString(GameClock.Clock.Milliseconds / 100))" />
+            </Field>
+        </ModalBody>
+        <ModalFooter>
+            <Blazorise.Button Color="Color.Secondary" Clicked="@HideGameClockModal">Cancel</Blazorise.Button>
+            <Blazorise.Button Color="Color.Primary" Clicked="@FinishGameClockModal">Save Changes</Blazorise.Button>
+        </ModalFooter>
+    </ModalContent>
+</Modal>
+
+<Modal @ref="modalShotClock">
+    <ModalContent Centered Size="ModalSize.Small">
+        <ModalHeader>
+            <ModalTitle>Edit Shot Clock</ModalTitle>
+            <CloseButton />
+        </ModalHeader>
+        <ModalBody>
+            <Field>
+                <FieldLabel>Seconds</FieldLabel>
+                <TextEdit @ref="modalShotClockSeconds" Placeholder="00" MaxLength="2" Text="@ShotClock.Clock.ToString(@"ss")" />
+            </Field>
+            <Field>
+                <FieldLabel>Milliseconds</FieldLabel>
+                <TextEdit @ref="modalShotClockMilliseconds" Placeholder="0" MaxLength="1" Text="@(Convert.ToString(ShotClock.Clock.Milliseconds / 100))" />
+            </Field>
+        </ModalBody>
+        <ModalFooter>
+            <Blazorise.Button Color="Color.Secondary" Clicked="@HideShotClockModal">Cancel</Blazorise.Button>
+            <Blazorise.Button Color="Color.Primary" Clicked="@FinishShotClockModal">Save Changes</Blazorise.Button>
+        </ModalFooter>
+    </ModalContent>
+</Modal>
+
 @code
 {
+    private Modal modalGameClock;
+    private Modal modalShotClock;
+    private TextEdit modalGameClockMinute;
+    private TextEdit modalGameClockSeconds;
+    private TextEdit modalGameClockMilliseconds;
+    private TextEdit modalShotClockSeconds;
+    private TextEdit modalShotClockMilliseconds;
     DownClock GameClock;
     DownClock ShotClock;
     Game GameStats;
@@ -244,5 +301,35 @@
         
     }
     
+    private Task ShowGameClockModal()
+    {
+        return modalGameClock.Show();
+    }
 
+    private Task HideGameClockModal()
+    {
+        return modalGameClock.Hide();
+    }
+
+    private void FinishGameClockModal()
+    {
+        GameClock = new BaSta.Model.DownClock(new TimeSpan(0,0,Convert.ToInt32(modalGameClockMinute.Text),Convert.ToInt32(modalGameClockSeconds.Text),Convert.ToInt32(modalGameClockMilliseconds.Text)*100));
+        modalGameClock.Close(CloseReason.None);
+    }
+
+    private Task ShowShotClockModal()
+    {
+        return modalShotClock.Show();
+    }
+
+    private Task HideShotClockModal()
+    {
+        return modalShotClock.Hide();
+    }
+
+    private void FinishShotClockModal()
+    {
+        ShotClock = new BaSta.Model.DownClock(new TimeSpan(0,0,0,Convert.ToInt32(modalShotClockSeconds.Text),Convert.ToInt32(modalShotClockMilliseconds.Text)*100));
+        modalShotClock.Close(CloseReason.None);
+    }
 }
