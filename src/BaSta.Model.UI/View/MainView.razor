@@ -175,7 +175,6 @@
     private void ToggleShotClockVisible()
     {
         shotClockVisible = !shotClockVisible;
-        Console.WriteLine("Status changed: " + shotClockVisible);
     }
 
     protected override void OnInitialized()
@@ -188,10 +187,9 @@
         ShotClock = new DownClock(TimeSpan.FromSeconds(24));
         ShotClock.ClockChanged += OnGameClockChanged;
 
+        //Initial setup of the game context
         GameStats = new Game();
-
         GameStats.Period.SetPeriod(1);
-
         GameStats.Possession.SetPossession(PossessionState.None);
     }
 
@@ -218,8 +216,33 @@
         ShotClock.SetState(GameClock.IsRunning);
     }
 
-    private void ChangePossesionArrowHome() => GameStats.Possession.SetPossession(PossessionState.Home);
+    private void ChangePossesionArrowHome() {
 
-    private void ChangePossesionArrowGuest() => GameStats.Possession.SetPossession(PossessionState.Guest);
+        //Remove context of possesion arrow if no possesion arrow exist (see euroleague rule with jump)
+        if (GameStats.Possession.Possession.Equals(PossessionState.Home))
+        {
+            GameStats.Possession.SetPossession(PossessionState.None);
+        }
+        else
+        {
+            GameStats.Possession.SetPossession(PossessionState.Home);
+        }
+
+    }
+
+    private void ChangePossesionArrowGuest()
+    {
+        //Remove context of possesion arrow if no possesion arrow exist (see euroleague rule with jump)
+        if (GameStats.Possession.Possession.Equals(PossessionState.Guest))
+        {
+            GameStats.Possession.SetPossession(PossessionState.None);
+        }
+        else
+        {
+            GameStats.Possession.SetPossession(PossessionState.Guest);
+        }
+        
+    }
+    
 
 }

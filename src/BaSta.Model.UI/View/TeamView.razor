@@ -107,7 +107,7 @@
     private TextEdit modalName;
     private TextEdit modalNameShort;
     private TextEdit modalNameInitials;
-
+ 
     DownClock TimeOutClock;
 
     private string GetPictureContent()
@@ -161,10 +161,11 @@
 
     protected override void OnInitialized()
     {
-
+        //initialize TimeOutClock 
         TimeOutClock = new BaSta.Model.DownClock(TimeSpan.FromSeconds(60));
         TimeOutClock.ClockChanged += OnTimeOutClockChanged;
 
+        //Set Timeout as standard to value "2". Idea: Value set based on period first halftime 2, second halftime 3, overtime 1
         DataContext.Timeouts = 2;
 
     }
@@ -176,6 +177,7 @@
 
     void TimeOutButtonClicked()
     {
+        //Backend stop of timeout is already zero, first check is on front end. Start timeout as soon the button is pressed to recude the value
         if(DataContext.Timeouts != 0)
         {
             TimeOutClock.SetState(!TimeOutClock.IsRunning);
@@ -185,14 +187,10 @@
 
     void TimeOutButtonAdd()
     {
+        //Here or at the front should be checked the max. timeout value based on period
         TimeOutClock = new BaSta.Model.DownClock(TimeSpan.FromSeconds(60));
         DataContext.Timeouts++;
     }
 
     void TimeOutClockChange() => TimeOutClock.SetState(!TimeOutClock.IsRunning);
-
-    void TimeOutPlus()
-    {
-       //Need context of which period to allow max timeouts
-    }
 }
