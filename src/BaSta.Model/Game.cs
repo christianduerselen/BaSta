@@ -17,6 +17,7 @@ public class Game : IGame
         Home = new Team();
         Guest = new Team();
         TimeoutClock = new TimeoutClock();
+        GameStatus = new GameStatus();
     }
 
     public IGameClock GameClock { get; }
@@ -27,4 +28,5 @@ public class Game : IGame
     public ITeam Home { get; }
     public ITeam Guest { get; }
     public ITimeoutClock TimeoutClock { get; }
+    public IGameStatus GameStatus { get; }
 }

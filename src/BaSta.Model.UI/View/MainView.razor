@@ -1,4 +1,5 @@
-﻿@inherits ViewBase<MainViewModel>
+﻿@using Microsoft.AspNetCore.Components.Web
+@inherits ViewBase<MainViewModel>
 @inject MainViewModel _viewModel
 
 <Container Fluid Style="border-bottom:2px solid black">
@@ -23,10 +24,10 @@
             <Heading Size="HeadingSize.Is3" Style="text-align:center">Period</Heading>
             <div class="hstack gap-2">
                 <Buttons Size="Size.ExtraLarge">
-                    <Blazorise.Button Disabled Color="Color.Dark">Break </Blazorise.Button>
-                    <Blazorise.Button Disabled Color="Color.Success" Style="width: 75px">@GameStats.Period.Period</Blazorise.Button>
-                    <Blazorise.Button Disabled Outline Color="Color.Dark">Game </Blazorise.Button>
-                </Buttons>              
+                    <Blazorise.Button Disabled="@(GameStats.GameStatus.Status.Equals(GameState.Break) ? true : false)" Color="@(GameStats.GameStatus.Status.Equals(GameState.Break) ? Color.Danger : Color.Success)" Clicked="ChangeGameStatusBreak">Break </Blazorise.Button>
+                    <Blazorise.Button Disabled Color="Color.Success" Style="width: 75px">@(GameStats.Period.Period > 4 ? "E" : GameStats.Period.Period)</Blazorise.Button>
+                    <Blazorise.Button Disabled="@(GameStats.GameStatus.Status.Equals(GameState.Game) ? true : false)" Color="@(GameStats.GameStatus.Status.Equals(GameState.Game) ? Color.Danger : Color.Success)" Clicked="ChangeGameStatusGame">Game </Blazorise.Button>
+                </Buttons>
             </div>
         </div>
     </div>
@@ -65,7 +66,7 @@
                     <Blazorise.Button Disabled Color="@(ShotClock.IsRunning ? Color.Danger : Color.Success)" Style="width: 75px">@(ShotClock.Clock.Milliseconds / 100) </Blazorise.Button>
                 </Buttons>
                 <Buttons Size="Size.Medium">
-                    <Blazorise.Button Style="height: 45px; width:50px" Clicked="GameClockButtonClicked" Color="@(ShotClock.IsRunning ? Color.Danger : Color.Success)">
+                    <Blazorise.Button Style="height: 45px; width:50px" Clicked="ShotClockButtonClicked" Color="@(ShotClock.IsRunning ? Color.Danger : Color.Success)">
                         <Icon Name="@(ShotClock.IsRunning ? IconName.Pause : IconName.Play)" />
                      </Blazorise.Button>
                     <Blazorise.Button Style="height: 45px; width:50px" Clicked="Reset24ButtonClicked" Outline Color="Color.Dark">
@@ -249,7 +250,8 @@
         GameStats.Period.SetPeriod(0);
         GameStats.Possession.SetPossession(PossessionState.None);
 
-        GameStats.
+        GameStats.GameStatus.SetGameState(GameState.Break);
+
     }
 
     private void OnGameClockChanged(object? sender, ShotClockStateChangedEventArgs e)
@@ -260,7 +262,21 @@
     void GameClockButtonClicked()
     {
         GameClock.SetState(!GameClock.IsRunning);
+        if(GameClock.IsRunning == true && GameStats.Period.Period > 0)
+        {
+            ShotClock.SetState(true);
+        }
+        else
+        {
+            ShotClock.SetState(false);
+        }
+
+    }
+
+    void ShotClockButtonClicked()
+    {
         ShotClock.SetState(!ShotClock.IsRunning);
+        ShotClock.ClockChanged += OnGameClockChanged;
     }
 
     private void Reset24ButtonClicked()
@@ -278,31 +294,39 @@
     private void ChangePossesionArrowHome() {
 
         //Remove context of possesion arrow if no possesion arrow exist (see euroleague rule with jump)
-        if (GameStats.Possession.Possession.Equals(PossessionState.Home))
+        if (!GameStats.GameStatus.Status.Equals(GameState.Game))
         {
-            GameStats.Possession.SetPossession(PossessionState.None);
+            if (GameStats.Possession.Possession.Equals(PossessionState.Home))
+            {
+                GameStats.Possession.SetPossession(PossessionState.None);
+            }
+            else
+            {
+                GameStats.Possession.SetPossession(PossessionState.Home);
+            }
         }
-        else
-        {
-            GameStats.Possession.SetPossession(PossessionState.Home);
-        }
+
 
     }
 
     private void ChangePossesionArrowGuest()
     {
         //Remove context of possesion arrow if no possesion arrow exist (see euroleague rule with jump)
-        if (GameStats.Possession.Possession.Equals(PossessionState.Guest))
+        if (!GameStats.GameStatus.Status.Equals(GameState.Game))
         {
-            GameStats.Possession.SetPossession(PossessionState.None);
+            if (GameStats.Possession.Possession.Equals(PossessionState.Guest))
+            {
+                GameStats.Possession.SetPossession(PossessionState.None);
+            }
+            else
+            {
+                GameStats.Possession.SetPossession(PossessionState.Guest);
+            } 
         }
-        else
-        {
-            GameStats.Possession.SetPossession(PossessionState.Guest);
-        }
-        
+
+
     }
-    
+
     private Task ShowGameClockModal()
     {
         return modalGameClock.Show();
@@ -333,5 +357,37 @@
     {
         ShotClock = new BaSta.Model.DownClock(new TimeSpan(0,0,0,Convert.ToInt32(modalShotClockSeconds.Text),Convert.ToInt32(modalShotClockMilliseconds.Text)*100));
         modalShotClock.Close(CloseReason.None);
+    }
+
+    private void ChangeGameStatusBreak() {
+
+        GameStats.GameStatus.SetGameState(GameState.Break);
+        if (GameStats.Period.Period % 2 == 0 && GameStats.Period.Period < 4)
+        {
+            GameClock = new BaSta.Model.DownClock(TimeSpan.FromMinutes(15));
+
+        }
+        else
+        {
+            GameClock = new BaSta.Model.DownClock(TimeSpan.FromMinutes(2));
+        }
+
+        GameClock.ClockChanged += OnGameClockChanged;
+        GameClock.SetState(true);
+    }
+    private void ChangeGameStatusGame() {
+
+        GameStats.GameStatus.SetGameState(GameState.Game);
+        int periodNumber = GameStats.Period.Period + 1;
+        GameStats.Period.SetPeriod(periodNumber);
+
+        if(GameStats.Period.Period > 0)
+        {
+            GameClock = new BaSta.Model.DownClock(TimeSpan.FromMinutes(10));
+            GameClock.ClockChanged += OnGameClockChanged;
+
+            ShotClock = new DownClock(TimeSpan.FromSeconds(24));
+            ShotClock.ClockChanged += OnGameClockChanged;
+        }
     }
 }
