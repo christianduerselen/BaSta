@@ -381,9 +381,16 @@
         int periodNumber = GameStats.Period.Period + 1;
         GameStats.Period.SetPeriod(periodNumber);
 
-        if(GameStats.Period.Period > 0)
+        if(GameStats.Period.Period > 0 && GameStats.Period.Period <= 4)
         {
             GameClock = new BaSta.Model.DownClock(TimeSpan.FromMinutes(10));
+            GameClock.ClockChanged += OnGameClockChanged;
+
+            ShotClock = new DownClock(TimeSpan.FromSeconds(24));
+            ShotClock.ClockChanged += OnGameClockChanged;
+        }else if (GameStats.Period.Period > 4)
+        {
+            GameClock = new BaSta.Model.DownClock(TimeSpan.FromMinutes(5));
             GameClock.ClockChanged += OnGameClockChanged;
 
             ShotClock = new DownClock(TimeSpan.FromSeconds(24));
