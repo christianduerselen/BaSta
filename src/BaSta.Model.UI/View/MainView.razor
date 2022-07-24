@@ -27,14 +27,17 @@
                     <Blazorise.Button Disabled Color="Color.Success" Style="width: 75px">@GameStats.Period.Period</Blazorise.Button>
                     <Blazorise.Button Disabled Outline Color="Color.Dark">Game </Blazorise.Button>
                 </Buttons>
+                <!--
                 <Buttons Size="Size.Medium">
                     <Blazorise.Button Outline Color="@(GameStats.Possession.Possession.Equals(1) ? Color.Danger : Color.Default)" Clicked="ChangePossesionArrowHome" Style="height: 45px; width: 50px">
                         <Icon Name="IconName.ArrowLeft" />
                      </Blazorise.Button>
                     <Blazorise.Button Outline Color="@(GameStats.Possession.Possession.Equals(2) ? Color.Danger : Color.Default)" Clicked="ChangePossesionArrowGuest" Style="height: 45px; width: 50px">
                         <Icon Name="IconName.ArrowRight" />
-                    </Blazorise.Button>
+                    </Blazorise.Button
                 </Buttons>
+                -->
+                
             </div>
         </div>
     </div>
@@ -99,10 +102,10 @@
         <div class="vstack">
             <Heading Size="HeadingSize.Is3" Style="text-align:center">Possession</Heading>
             <Buttons Size="Size.ExtraLarge">
-                <Blazorise.Button Outline Color="Color.Success" Style="height: 54px; width: 75px">
+                <Blazorise.Button Outline Color="Color.Success" Clicked="ChangePossesionArrowHome" Style="height: 54px; width: 75px">
                     <Icon Name="IconName.ArrowLeft" />
                  </Blazorise.Button>
-                <Blazorise.Button Color="Color.Success" Style="height: 54px; width: 75px">
+                <Blazorise.Button Color="Color.Success" Clicked="ChangePossesionArrowGuest" Style="height: 54px; width: 75px">
                     <Icon Name="IconName.ArrowRight" />
                  </Blazorise.Button>
             </Buttons>

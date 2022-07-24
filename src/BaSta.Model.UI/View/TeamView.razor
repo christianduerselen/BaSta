@@ -47,11 +47,11 @@
             <div class="hstack gap-2">
                 <Buttons Size="Size.Large">
                     <Blazorise.Button Disabled Color="@(DataContext.Timeouts > 0 ? Color.Dark : Color.Danger)" Style="width: 50px">@DataContext.Timeouts</Blazorise.Button>
-                    <Blazorise.Button Disabled Outline Color="Color.Danger" Background="@(TimeOutClock.IsRunning && TimeOutClock.Clock.TotalSeconds != 60 ? Background.Success : Background.Default)" Style="width: 60px">@Convert.ToInt32(TimeOutClock.Clock.TotalSeconds)</Blazorise.Button>
+                    <Blazorise.Button Disabled Color="@(TimeOutClock.IsRunning && TimeOutClock.Clock.TotalSeconds != 60 ? Color.Danger : Color.Success)" Style="width: 60px">@Convert.ToInt32(TimeOutClock.Clock.TotalSeconds)</Blazorise.Button>
                 </Buttons>
                 <Buttons Size="Size.Default">
                     <Blazorise.Button Outline Color="Color.Danger" Style="width: 40px" Disabled="@(DataContext.Timeouts > 0 ? false : true)" Clicked="TimeOutButtonClicked">-</Blazorise.Button>
-                    <Blazorise.Button Outline Color="Color.Success" Style="width: 40px">+</Blazorise.Button>
+                    <Blazorise.Button Outline Color="Color.Success" Style="width: 40px" Disabled="@(DataContext.Timeouts <= 2 ? false : true)" Clicked="TimeOutButtonAdd" >+</Blazorise.Button>
                     <Blazorise.Button Outline Color="Color.Dark" Style="width: 40px" Disabled="@(TimeOutClock.Clock.TotalSeconds != 60 ? false : true)" Clicked="TimeOutClockChange">
                         <Icon Name="@(TimeOutClock.IsRunning ? IconName.Pause : IconName.Play)"/>
                     </Blazorise.Button>
@@ -181,6 +181,12 @@
             TimeOutClock.SetState(!TimeOutClock.IsRunning);
             DataContext.Timeouts--;
         }
+    }
+
+    void TimeOutButtonAdd()
+    {
+        TimeOutClock = new BaSta.Model.DownClock(TimeSpan.FromSeconds(60));
+        DataContext.Timeouts++;
     }
 
     void TimeOutClockChange() => TimeOutClock.SetState(!TimeOutClock.IsRunning);
