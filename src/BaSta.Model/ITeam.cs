@@ -29,4 +29,6 @@ public interface ITeam
     IPlayer? GetPlayer(int index);
     void AddPlayer(IPlayer player);
     void RemovePlayer(IPlayer player);
+    void UpdateTeamPoints();
+    void UpdateTeamFouls();
 }

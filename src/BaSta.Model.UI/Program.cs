@@ -9,6 +9,8 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 IGame game = new Game();
 game.Home.SetName("Medipolis SC Jena");
+game.Home.SetNameInitials("SJC");
+game.Home.SetNameShort("Jena");
 game.Home.SetLogo(Resource.Medipolis_SC_Jena);
 game.Home.AddPlayer(new Player("Wolf", 10));
 game.Home.AddPlayer(new Player("Haukohl", 35));

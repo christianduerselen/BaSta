@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 using BaSta.MVVM;
 
 namespace BaSta.Model.UI.ViewModel;
@@ -10,7 +11,16 @@ public class TeamViewModel : ViewModelBase
     public TeamViewModel(ITeam team)
     {
         _team = team;
-        Players = new ObservableCollection<PlayerViewModel>(team.Players.Select(x => new PlayerViewModel(x)));
+        Players = new ObservableCollection<PlayerViewModel>(team.Players.Select(x => new PlayerViewModel(x,this)));
+
+        PointCommand = new RelayCommand(() => Points = (Players.Sum(x => x.Points)));
+
+        AddTimeOutCommand = new RelayCommand(() => Timeouts += 1);
+        RemoveTimeOutCommand = new RelayCommand(() => Timeouts -= 1);
+
+        FoulCommand = new RelayCommand(() => Fouls = (Players.Sum(x => x.Fouls)));
+
+
     }
 
     public string Name
@@ -105,4 +115,13 @@ public class TeamViewModel : ViewModelBase
     }
 
     public ObservableCollection<PlayerViewModel> Players { get; }
+
+    public ICommand PointCommand { get; }
+
+    public ICommand AddTimeOutCommand { get; }
+
+    public ICommand RemoveTimeOutCommand { get; }
+
+    public ICommand FoulCommand { get; }
+
 }

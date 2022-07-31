@@ -28,10 +28,6 @@
             <Heading Size="HeadingSize.Is5" Style="text-align:center">Points</Heading>
             <div class="hstack gap-2">
                 <Blazorise.Button Size="Size.Large" Disabled Color="Color.Success" Style="width: 75px">@DataContext.Points</Blazorise.Button>
-                <Buttons Size="Size.Default">
-                    <Blazorise.Button Outline Color="Color.Danger" Style="width: 40px" Disabled>-</Blazorise.Button>
-                    <Blazorise.Button Outline Color="Color.Success" Style="width: 40px">+</Blazorise.Button>
-                </Buttons>
             </div>
         </div>
     </div>
@@ -41,10 +37,6 @@
             <Heading Size="HeadingSize.Is5" Style="text-align:center">Fouls</Heading>
             <div class="hstack gap-2">
                 <Blazorise.Button Size="Size.Large" Disabled Color="Color.Danger" Style="width: 50px">@DataContext.Fouls</Blazorise.Button>
-                <Buttons Size="Size.Default">
-                    <Blazorise.Button Outline Color="Color.Danger" Style="width: 40px" Disabled>-</Blazorise.Button>
-                    <Blazorise.Button Outline Color="Color.Success" Style="width: 40px">+</Blazorise.Button>
-                </Buttons>
             </div>
         </div>
     </div>
@@ -54,14 +46,14 @@
             <Heading Size="HeadingSize.Is5" Style="text-align:center">Timeouts</Heading>
             <div class="hstack gap-2">
                 <Buttons Size="Size.Large">
-                    <Blazorise.Button Disabled Color="Color.Dark" Style="width: 50px">@DataContext.Timeouts</Blazorise.Button>
-                    <Blazorise.Button Disabled Outline Color="Color.Danger" Style="width: 60px">-</Blazorise.Button>
+                    <Blazorise.Button Disabled Color="@(DataContext.Timeouts > 0 ? Color.Dark : Color.Danger)" Style="width: 50px">@DataContext.Timeouts</Blazorise.Button>
+                    <Blazorise.Button Disabled Color="@(TimeOutClock.IsRunning && TimeOutClock.Clock.TotalSeconds != 60 ? Color.Danger : Color.Success)" Style="width: 60px">@Convert.ToInt32(TimeOutClock.Clock.TotalSeconds)</Blazorise.Button>
                 </Buttons>
                 <Buttons Size="Size.Default">
-                    <Blazorise.Button Outline Color="Color.Danger" Style="width: 40px" Disabled>-</Blazorise.Button>
-                    <Blazorise.Button Outline Color="Color.Success" Style="width: 40px">+</Blazorise.Button>
-                    <Blazorise.Button Outline Color="Color.Dark" Style="width: 40px" Disabled>
-                        <Icon Name="IconName.Stop"/>
+                    <Blazorise.Button Outline Color="Color.Danger" Style="width: 40px" Disabled="@(DataContext.Timeouts > 0 ? false : true)" Clicked="TimeOutButtonClicked">-</Blazorise.Button>
+                    <Blazorise.Button Outline Color="Color.Success" Style="width: 40px" Disabled="@(DataContext.Timeouts <= 2 ? false : true)" Clicked="TimeOutButtonAdd" >+</Blazorise.Button>
+                    <Blazorise.Button Outline Color="Color.Dark" Style="width: 40px" Disabled="@(TimeOutClock.Clock.TotalSeconds != 60 ? false : true)" Clicked="TimeOutClockChange">
+                        <Icon Name="@(TimeOutClock.IsRunning ? IconName.Pause : IconName.Play)"/>
                     </Blazorise.Button>
                 </Buttons>
             </div>
@@ -103,8 +95,8 @@
             </Field>
         </ModalBody>
         <ModalFooter>
-            <BaSta.Model.UI.View.Button Color="Color.Secondary" Clicked="@HideModal">Cancel</BaSta.Model.UI.View.Button>
-            <BaSta.Model.UI.View.Button Color="Color.Primary" Clicked="@FinishModal">Save Changes</BaSta.Model.UI.View.Button>
+            <Blazorise.Button Color="Color.Secondary" Clicked="@HideModal">Cancel</Blazorise.Button>
+            <Blazorise.Button Color="Color.Primary" Clicked="@FinishModal">Save Changes</Blazorise.Button>
         </ModalFooter>
     </ModalContent>
 </Modal>
@@ -115,6 +107,8 @@
     private TextEdit modalName;
     private TextEdit modalNameShort;
     private TextEdit modalNameInitials;
+ 
+    DownClock TimeOutClock;
 
     private string GetPictureContent()
     {
@@ -164,4 +158,39 @@
         //throw new NotImplementedException();
         modalRef.Close(CloseReason.None);
     }
+
+    protected override void OnInitialized()
+    {
+        //initialize TimeOutClock 
+        TimeOutClock = new BaSta.Model.DownClock(TimeSpan.FromSeconds(60));
+        TimeOutClock.ClockChanged += OnTimeOutClockChanged;
+
+        //Set Timeout as standard to value "2". Idea: Value set based on period first halftime 2, second halftime 3, overtime 1
+        DataContext.Timeouts = 2;
+
+    }
+
+    private void OnTimeOutClockChanged(object? sender, ShotClockStateChangedEventArgs e)
+    {
+        InvokeAsync(StateHasChanged);
+    }
+
+    void TimeOutButtonClicked()
+    {
+        //Backend stop of timeout is already zero, first check is on front end. Start timeout as soon the button is pressed to recude the value
+        if(DataContext.Timeouts != 0)
+        {
+            TimeOutClock.SetState(!TimeOutClock.IsRunning);
+            DataContext.Timeouts--;
+        }
+    }
+
+    void TimeOutButtonAdd()
+    {
+        //Here or at the front should be checked the max. timeout value based on period
+        TimeOutClock = new BaSta.Model.DownClock(TimeSpan.FromSeconds(60));
+        DataContext.Timeouts++;
+    }
+
+    void TimeOutClockChange() => TimeOutClock.SetState(!TimeOutClock.IsRunning);
 }
