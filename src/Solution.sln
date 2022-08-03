@@ -51,6 +51,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{7D3ED201
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BaSta.MVVM", "BaSta.MVVM\BaSta.MVVM.csproj", "{1836236F-621C-4B24-AB7A-2D076C3C1C52}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaSta.Control.StreamDeck", "BaSta.Control.StreamDeck\BaSta.Control.StreamDeck.csproj", "{DA9BFE2C-5D02-435B-BFA8-6E1B3C47AFD0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -145,6 +147,10 @@ Global
 		{1836236F-621C-4B24-AB7A-2D076C3C1C52}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1836236F-621C-4B24-AB7A-2D076C3C1C52}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1836236F-621C-4B24-AB7A-2D076C3C1C52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA9BFE2C-5D02-435B-BFA8-6E1B3C47AFD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA9BFE2C-5D02-435B-BFA8-6E1B3C47AFD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA9BFE2C-5D02-435B-BFA8-6E1B3C47AFD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA9BFE2C-5D02-435B-BFA8-6E1B3C47AFD0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -167,6 +173,7 @@ Global
 		{5EAFC446-1006-4164-AC13-4D70ACA56C89} = {7D3ED201-392C-47DB-B601-B6B191378738}
 		{39121BC4-50AB-4AB1-842A-FE956793983B} = {7D3ED201-392C-47DB-B601-B6B191378738}
 		{1836236F-621C-4B24-AB7A-2D076C3C1C52} = {CFFE1FF7-59F5-4DE9-A328-58203F6F7DF2}
+		{DA9BFE2C-5D02-435B-BFA8-6E1B3C47AFD0} = {CFFE1FF7-59F5-4DE9-A328-58203F6F7DF2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F66CECBA-BE70-4EEE-8A27-2CB74D40D687}
