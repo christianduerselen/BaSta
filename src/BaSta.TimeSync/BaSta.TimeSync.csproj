@@ -19,7 +19,7 @@
     <ProjectReference Include="..\BaSta.Link.SwissTiming\BaSta.Link.SwissTiming.csproj" />
     <ProjectReference Include="..\BaSta.Link.Wige\BaSta.Link.Wige.csproj" />
 
-    <PackageReference Include="NLog" Version="5.0.5" />
+    <PackageReference Include="NLog" Version="5.1.0" />
   </ItemGroup>
 
   <ItemGroup>

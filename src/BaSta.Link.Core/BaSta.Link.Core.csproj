@@ -6,13 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BaSta.Core\BaSta.Core.csproj" />
+    
     <PackageReference Include="ini-parser-netstandard" Version="2.5.2" />
     <PackageReference Include="System.IO.Ports" Version="7.0.0" />
     <PackageReference Include="System.Management" Version="7.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\BaSta.Core\BaSta.Core.csproj" />
   </ItemGroup>
 
 </Project>

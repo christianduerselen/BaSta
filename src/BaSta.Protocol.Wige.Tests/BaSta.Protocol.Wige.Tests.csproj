@@ -5,12 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Resources\**\*" />
+    <ProjectReference Include="..\BaSta.Protocol.Wige\BaSta.Protocol.Wige.csproj" />
+    <ProjectReference Include="..\BaSta.Tests\BaSta.Tests.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BaSta.Protocol.Wige\BaSta.Protocol.Wige.csproj" />
-    <ProjectReference Include="..\BaSta.Tests\BaSta.Tests.csproj" />
+    <EmbeddedResource Include="Resources\**\*" />
   </ItemGroup>
 
 </Project>

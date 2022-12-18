@@ -5,12 +5,12 @@
     <TargetFramework>net7.0</TargetFramework>
   </PropertyGroup>
 
-	<ItemGroup>
-		<PackageReference Include="StreamDeckSharp" Version="3.2.0" />
-	</ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="StreamDeckSharp" Version="3.2.0" />
+  </ItemGroup>
 
-	<ItemGroup>
-		<EmbeddedResource Include="Icons\**\*" />
-	</ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Icons\**\*" />
+  </ItemGroup>
 
 </Project>
