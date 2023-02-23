@@ -127,7 +127,7 @@ public static class ResourceHelper
             string location = locations.FirstOrDefault(x => x.EndsWith(fileName));
 
             if (string.IsNullOrEmpty(location))
-                throw new Exception($"No embedded resource location found ending with name '{fileName}'! Available: {string.Join('|', locations)}");
+                throw new Exception($"No embedded resource location found ending with name '{fileName}'!");
 
             return ExtractResource(assembly, location);
         }

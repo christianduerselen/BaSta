@@ -5,5 +5,5 @@
 /// </summary>
 internal static class EmbeddedResources
 {
-    internal const string TraceDump = "Stramatel-Trace.log";
+    internal const string TraceDump = "Stramatel-Trace.dat";
 }
