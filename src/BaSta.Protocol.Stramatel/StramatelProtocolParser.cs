@@ -37,8 +37,9 @@ namespace BaSta.Protocol.Stramatel
                     if (_queue.Count != MessageSize)
                         continue;
 
-                    // A stramatel message should start with 0xF8
-                    if (_queue.Peek() != 0xF8)
+                    // A stramatel message should start with 0xF8 or 0xF9
+                    byte peekByte = _queue.Peek();
+                    if (peekByte != 0xF8 && peekByte != 0xF9)
                         continue;
 
                     // Extract the whole message data

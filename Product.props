@@ -1,0 +1,11 @@
+<Project>
+  
+  <PropertyGroup>
+    <Product>BaSta</Product>
+    <Title>$(MSBuildProjectName)</Title>
+    <Description>BaSta is a set of tools for basketball statistics.</Description>
+    <Company>Christian Dürselen</Company>
+    <Copyright>Copyright $([System.DateTime]::Now.ToString("yyyy")) $(Company). All rights reserved.</Copyright>
+  </PropertyGroup>
+  
+</Project>

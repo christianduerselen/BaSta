@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BaSta.Protocol.Bodet\BaSta.Protocol.Bodet.csproj" />
+    <ProjectReference Include="..\..\src\BaSta.Protocol.Stramatel\BaSta.Protocol.Stramatel.csproj" />
     <ProjectReference Include="..\BaSta.Tests\BaSta.Tests.csproj" />
   </ItemGroup>
 

@@ -15,7 +15,7 @@ public class StramatelProtocolMessageParserTests
         StramatelProtocolMessageParser parser = new();
         parser.Parse(traceDump);
 
-        Assert.Equal(6034, parser.MessagesAvailable);
+        Assert.Equal(21267, parser.MessagesAvailable);
     }
 
     [Fact]

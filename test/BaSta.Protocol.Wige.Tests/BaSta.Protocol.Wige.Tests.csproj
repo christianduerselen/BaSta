@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BaSta.Protocol.Wige\BaSta.Protocol.Wige.csproj" />
+    <ProjectReference Include="..\..\src\BaSta.Protocol.Wige\BaSta.Protocol.Wige.csproj" />
     <ProjectReference Include="..\BaSta.Tests\BaSta.Tests.csproj" />
   </ItemGroup>
 

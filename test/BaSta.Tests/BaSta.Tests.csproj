@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\BaSta.Core\BaSta.Core.csproj" />
+    <ProjectReference Include="..\..\src\BaSta.Link.Bodet\BaSta.Link.Bodet.csproj" />
+    <ProjectReference Include="..\..\src\BaSta.Link.Core\BaSta.Link.Core.csproj" />
+    <ProjectReference Include="..\..\src\BaSta.Link.Stramatel\BaSta.Link.Stramatel.csproj" />
+    <ProjectReference Include="..\..\src\BaSta.Link.SwissTiming\BaSta.Link.SwissTiming.csproj" />
+    <ProjectReference Include="..\..\src\BaSta.Link.Wige\BaSta.Link.Wige.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\**\*" />
+  </ItemGroup>
+
+</Project>

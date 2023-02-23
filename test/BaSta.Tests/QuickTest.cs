@@ -11,7 +11,7 @@ namespace BaSta.Tests;
 
 public class QuickTest
 {
-    [Fact]
+    [Fact(Skip = "Requires additional running software")]
     public void ScoutSendTest()
     {
         ScoutTimeOutput output = new();
@@ -28,7 +28,7 @@ public class QuickTest
         }
     }
 
-    [Fact]
+    [Fact(Skip = "Requires additional running software")]
     public void StramatelSerialInput_Test()
     {
         StramatelSerialInput input = new();
@@ -41,7 +41,7 @@ public class QuickTest
         while (true) { }
     }
 
-    [Fact]
+    [Fact(Skip = "Requires additional running software")]
     public void WigeSerialInput_Test()
     {
         WigeSerialInput input = new();
@@ -54,7 +54,7 @@ public class QuickTest
         while (true) { }
     }
 
-    [Fact]
+    [Fact(Skip = "Requires additional running software")]
     public void BodetSerialInput_Test()
     {
         BodetSerialInput input = new();

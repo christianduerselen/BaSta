@@ -8,7 +8,7 @@ namespace BaSta.Protocol.Stramatel.Tests;
 
 public class StramatelMessageSenderTests
 {
-    [Fact]
+    [Fact(Skip = "Requires local COM port #6")]
     public void StramatelMessageSender_SendGameTimeZeroTest()
     {
         SerialPort port = new()
